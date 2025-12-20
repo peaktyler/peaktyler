@@ -63,8 +63,8 @@
                        class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-white hover:text-orange-500 transition-colors"
                        x-text="item"></a>
                 </template>
-                <a href="#socials" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:scale-105">
-                    Connect
+                <a href="#contact" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:scale-105">
+                    Contact
                 </a>
             </div>
 
@@ -79,7 +79,7 @@
              x-transition:enter-end="opacity-100 translate-y-0"
              @click.away="mobileOpen = false" 
              class="md:hidden absolute top-full left-0 w-full bg-gray-900 border-t border-gray-800 p-6 flex flex-col gap-4 shadow-xl">
-            <template x-for="item in ['Home', 'About', 'Gear', 'Trips', 'Socials']">
+             <template x-for="item in ['Home', 'About', 'Gear', 'Trips', 'Contact']">
                 <a :href="'#' + item.toLowerCase()" 
                    @click="mobileOpen = false"
                    class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2"
@@ -112,7 +112,6 @@
 
     <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 items-center">
-            
             <div class="grid grid-cols-2 gap-4 gs-reveal">
                 <div class="space-y-4 mt-8">
                     <img :src="profile.gallery[0]" class="w-full h-48 md:h-64 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
@@ -152,7 +151,6 @@
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-12 text-center">
                 <h2 class="text-4xl font-bold mb-4">Essential Kit</h2>
-                
                 <div class="flex flex-wrap justify-center gap-3 mt-6">
                     <template x-for="cat in ['All', 'Backpack', 'Camera', 'Footwear', 'Shelter']">
                         <button 
@@ -172,7 +170,6 @@
                          x-transition:enter-start="opacity-0 transform scale-90"
                          x-transition:enter-end="opacity-100 transform scale-100"
                          class="h-full">
-                        
                         <a :href="item.link" target="_blank" class="group h-full flex flex-col bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors duration-300 border border-gray-700">
                             <div class="h-48 overflow-hidden relative shrink-0">
                                 <img :src="item.image" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" :alt="item.name">
@@ -189,7 +186,6 @@
                                 </div>
                             </div>
                         </a>
-
                     </div>
                 </template>
             </div>
@@ -198,7 +194,6 @@
 
     <section id="trips" class="py-24 px-6 max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold mb-12 text-center text-gray-900">Field Notes & Itineraries</h2>
-        
         <div class="space-y-12">
             <template x-for="(trip, index) in trips" :key="index">
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 gs-reveal">
@@ -218,7 +213,6 @@
                             </div>
                             <h3 class="text-2xl md:text-3xl font-bold mb-3 text-gray-900" x-text="trip.title"></h3>
                             <p class="text-gray-600 mb-6 line-clamp-3" x-text="trip.snippet"></p>
-                            
                             <div x-data="{ expanded: false }">
                                 <button @click="expanded = !expanded" class="text-orange-600 font-bold hover:text-orange-800 flex items-center gap-2">
                                     <span x-text="expanded ? 'Close Itinerary' : 'Read Full Log'"></span>
@@ -241,19 +235,40 @@
         </div>
     </section>
 
-    <section id="socials" class="py-24 px-6 bg-gray-900 text-center">
-        <div class="max-w-md mx-auto">
-             <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-4 border-orange-600">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+    <section id="contact" class="py-24 px-6 bg-gray-900 text-center border-t border-gray-800">
+        <div class="max-w-2xl mx-auto">
+            <div class="w-20 h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-2 border-orange-600">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </div>
-            <h2 class="text-3xl font-bold text-white mb-8">Connect on Socials</h2>
-            <div class="space-y-4">
-                <template x-for="link in socials">
-                    <a :href="link.url" target="_blank" class="block w-full py-4 px-6 bg-gray-800 hover:bg-orange-600 text-white rounded-lg font-bold transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-between border border-gray-700">
-                        <span x-text="link.platform"></span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
-                </template>
+            <h2 class="text-4xl font-bold text-white mb-2">Get in Touch</h2>
+            <p class="text-gray-400 mb-10">Have a project in mind or just want to swap trail stories?</p>
+            
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="text-left space-y-4">
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="name" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Name</label>
+                        <input type="text" name="name" id="name" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
+                        <input type="email" name="email" id="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Message</label>
+                    <textarea name="message" id="message" rows="5" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="Tell me about your next adventure..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:-translate-y-1 shadow-lg">
+                    Send Message
+                </button>
+            </form>
+
+            <div class="mt-8 pt-8 border-t border-gray-800 flex justify-center gap-8 text-gray-500">
+                <span class="text-sm">Based in Colorado</span>
+                <span class="text-sm">tyler@peaktyler.com</span>
             </div>
         </div>
     </section>
