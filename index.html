@@ -240,35 +240,28 @@
             <div class="w-20 h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-2 border-orange-600">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </div>
+            
             <h2 class="text-4xl font-bold text-white mb-2">Get in Touch</h2>
             <p class="text-gray-400 mb-10">Have a project in mind or just want to swap trail stories?</p>
             
-            <form action="https://formspree.io/f/xnjajwal" method="POST" class="text-left space-y-4">
+            <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 shadow-xl">
+                <p class="text-gray-300 mb-6 text-lg">
+                    The best way to reach me is via email. Click the button below to open your mail client, or copy my address manually.
+                </p>
+
+                <a href="mailto:tyler@peaktyler.com?subject=Adventure%20Inquiry" class="inline-flex items-center justify-center w-full md:w-auto bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:-translate-y-1 shadow-lg gap-3 mb-6">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Email Me Directly
+                </a>
                 
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="name" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Name</label>
-                        <input type="text" name="name" id="name" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="Your Name">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
-                        <input type="email" name="email" id="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="you@example.com">
-                    </div>
+                <div class="mt-4 pt-4 border-t border-gray-700">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-bold mb-2">Or copy address:</p>
+                    <code class="bg-gray-900 text-orange-500 px-4 py-2 rounded text-lg select-all">tyler@peaktyler.com</code>
                 </div>
+            </div>
 
-                <div>
-                    <label for="message" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Message</label>
-                    <textarea name="message" id="message" rows="5" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all placeholder-gray-500" placeholder="Tell me about your next adventure..."></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:-translate-y-1 shadow-lg">
-                    Send Message
-                </button>
-            </form>
-
-            <div class="mt-8 pt-8 border-t border-gray-800 flex justify-center gap-8 text-gray-500">
-                <span class="text-sm">Based in Colorado</span>
-                <span class="text-sm">tyler@peaktyler.com</span>
+            <div class="mt-8 text-gray-500 text-sm">
+                Based in Colorado
             </div>
         </div>
     </section>
@@ -282,7 +275,7 @@
     <script>
         function getIcon(platform) {
             const icons = {
-                'Instagram': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
+                'Instagram': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
                 'YouTube': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
                 'TikTok': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.03 5.84-.02 8.75-.08 1.4-.54 2.82-1.35 4.01-1.15 1.66-2.91 2.89-4.86 3.48-1.99.6-4.18.57-6.16-.1-1.99-.67-3.7-1.94-4.88-3.67-1.18-1.72-1.6-3.87-1.19-5.94.41-2.08 1.54-3.95 3.21-5.26 1.68-1.31 3.82-1.89 5.92-1.61v4.22c-1.3-.16-2.67.24-3.63 1.14-.97.9-1.46 2.26-1.3 3.56.16 1.3 1.05 2.45 2.27 2.94 1.22.49 2.65.25 3.63-.64.98-.89 1.48-2.22 1.4-3.54V.02z"/></svg>',
                 'Patreon': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M0 .48v23.04h4.22V.48zm15.385 0c-4.764 0-8.641 3.88-8.641 8.65 0 4.755 3.877 8.623 8.641 8.623 4.75 0 8.615-3.868 8.615-8.623C24 4.36 20.136.48 15.385.48z"/></svg>'
