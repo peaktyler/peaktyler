@@ -38,27 +38,49 @@
 </head>
 <body class="text-gray-800 topo-bg overflow-x-hidden" x-data="siteData()">
 
-    <div class="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-center">
-        <template x-for="(section, index) in ['home', 'about', 'gear', 'trips']">
-            <a :href="'#' + section" class="group relative flex items-center justify-center w-3 h-3 rounded-full bg-gray-400 hover:bg-orange-600 transition-all duration-300">
-                <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold uppercase tracking-widest text-gray-800 whitespace-nowrap" x-text="section"></span>
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         x-data="{ mobileOpen: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-6'">
+        
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-white tracking-tighter flex items-center gap-3 group">
+                <div class="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center relative transition-transform duration-700 group-hover:rotate-180">
+                    <div class="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[10px] border-b-orange-600 mb-1"></div>
+                </div>
+                THE TRAILHEAD
             </a>
-        </template>
-        <div class="w-px h-24 bg-gray-300 mt-4"></div>
-        <div class="w-12 h-12 border-2 border-gray-800 rounded-full flex items-center justify-center relative compass-spin">
-            <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[15px] border-b-orange-600 absolute bottom-1/2"></div>
-            <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[15px] border-t-gray-800 absolute top-1/2"></div>
-        </div>
-    </div>
 
-    <div class="fixed bottom-4 left-4 right-4 z-50 md:hidden">
-        <div class="glass-panel rounded-full p-4 flex justify-between items-center shadow-lg">
-            <a href="#home" class="text-xs font-bold uppercase hover:text-orange-600">Home</a>
-            <a href="#about" class="text-xs font-bold uppercase hover:text-orange-600">About</a>
-            <a href="#gear" class="text-xs font-bold uppercase hover:text-orange-600">Gear</a>
-            <a href="#trips" class="text-xs font-bold uppercase hover:text-orange-600">Trips</a>
+            <div class="hidden md:flex items-center gap-8">
+                <template x-for="item in ['Home', 'About', 'Gear', 'Trips']">
+                    <a :href="'#' + item.toLowerCase()" 
+                       class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-white hover:text-orange-500 transition-colors"
+                       x-text="item"></a>
+                </template>
+                <a href="#socials" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:scale-105">
+                    Connect
+                </a>
+            </div>
+
+            <button @click="mobileOpen = !mobileOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
         </div>
-    </div>
+
+        <div x-show="mobileOpen" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             @click.away="mobileOpen = false" 
+             class="md:hidden absolute top-full left-0 w-full bg-gray-900 border-t border-gray-800 p-6 flex flex-col gap-4 shadow-xl">
+            <template x-for="item in ['Home', 'About', 'Gear', 'Trips', 'Socials']">
+                <a :href="'#' + item.toLowerCase()" 
+                   @click="mobileOpen = false"
+                   class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2"
+                   x-text="item"></a>
+            </template>
+        </div>
+    </nav>
 
     <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
@@ -66,7 +88,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
         </div>
         
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto gs-reveal">
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto gs-reveal pt-20">
             <span class="inline-block py-1 px-3 border border-white/30 rounded-full text-white text-xs uppercase tracking-[0.2em] mb-4 backdrop-blur-md">The Great Outdoors</span>
             <h1 class="text-6xl md:text-8xl font-bold text-white mb-6 leading-tight" x-text="profile.name"></h1>
             <p class="text-xl md:text-2xl text-gray-200 font-light max-w-2xl mx-auto" x-text="profile.tagline"></p>
@@ -219,19 +241,30 @@
         </div>
     </section>
 
-    <footer class="bg-gray-950 py-12 text-center text-gray-500 text-sm">
-        <div class="mb-6 flex justify-center gap-6">
-            <template x-for="link in socials">
-                 <a :href="link.url" class="hover:text-orange-600 transition-colors" x-text="link.platform"></a>
-            </template>
+    <section id="socials" class="py-24 px-6 bg-gray-900 text-center">
+        <div class="max-w-md mx-auto">
+             <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-4 border-orange-600">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-8">Connect on Socials</h2>
+            <div class="space-y-4">
+                <template x-for="link in socials">
+                    <a :href="link.url" target="_blank" class="block w-full py-4 px-6 bg-gray-800 hover:bg-orange-600 text-white rounded-lg font-bold transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-between border border-gray-700">
+                        <span x-text="link.platform"></span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </template>
+            </div>
         </div>
+    </section>
+
+    <footer class="bg-gray-950 py-12 text-center text-gray-500 text-sm">
         <p class="mt-2">Designed for Adventure.</p>
         <p class="mt-2">As an Amazon Associate, I earn from qualifying purchases.</p>
         <p>&copy; <span x-text="new Date().getFullYear()"></span> The Trailhead. All rights reserved.</p>
     </footer>
 
     <script>
-        // Icons helper
         function getIcon(platform) {
             const icons = {
                 'Instagram': '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
@@ -242,7 +275,6 @@
             return icons[platform.split(' ')[0]] || icons['Instagram'];
         }
 
-        // === UPDATED SITE DATA ===
         function siteData() {
             return {
                 profile: {
@@ -250,8 +282,7 @@
                     tagline: "Visual Storyteller & Alpine Guide",
                     bio: "Chasing peaks and views worldwide. Colorado-based, I climb, travel, and document wherever I end up. And this is where you can follow along: the trips I’m on, the routes I take, and the gear I rely on along the way.",
                     heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Changed to better avatar
-                    // ADDED GALLERY IMAGES
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     gallery: [
                         "https://images.unsplash.com/photo-1526772662000-3f88f1056e8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                         "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -292,7 +323,6 @@
                         image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                         link: "#"
                     },
-                    // Added extra items to demonstrate filter
                     {
                         name: "Canon 16-35mm",
                         category: "Camera",
@@ -341,7 +371,6 @@
             }
         }
 
-        // === GSAP ANIMATIONS ===
         gsap.registerPlugin(ScrollTrigger);
 
         const revealElements = document.querySelectorAll(".gs-reveal");
@@ -358,16 +387,6 @@
                     }
                 }
             );
-        });
-
-        gsap.to(".compass-spin", {
-            rotation: 360,
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1
-            }
         });
     </script>
 </body>
