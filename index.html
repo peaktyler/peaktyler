@@ -15,11 +15,11 @@
         body { font-family: 'Outfit', sans-serif; }
         h1, h2, h3, .heading-font { font-family: 'Space Grotesk', sans-serif; }
         
-        /* Updated Topo Map Background Pattern - Smooth Lines */
+        /* Topo Map Background */
         .topo-bg {
             background-color: #f3f4f6;
             background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topoPattern' patternUnits='userSpaceOnUse' width='500' height='500' viewBox='0 0 500 500'%3E%3Cpath d='M0 250 Q 125 100, 250 250 Q 375 400, 500 250 M0 270 Q 125 120, 250 270 Q 375 420, 500 270 M0 230 Q 125 80, 250 230 Q 375 380, 500 230 M0 300 Q 125 150, 250 300 Q 375 450, 500 300 M0 200 Q 125 50, 250 200 Q 375 350, 500 200 M0 350 Q 125 200, 250 350 Q 375 500, 500 350 M0 150 Q 125 0, 250 150 Q 375 300, 500 150' stroke='%239ca3af' stroke-opacity='0.3' fill='none' stroke-width='1.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23topoPattern)'/%3E%3C/svg%3E");
-            background-size: 500px 500px; /* Ensures pattern repeats seamlessly */
+            background-size: 500px 500px;
         }
 
         /* Custom Scrollbar */
@@ -39,9 +39,9 @@
 <body class="text-gray-800 topo-bg overflow-x-hidden" x-data="siteData()">
 
     <div class="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-center">
-        <template x-for="(section, index) in ['home', 'about', 'gear', 'trips', 'socials']">
+        <template x-for="(section, index) in ['home', 'about', 'gear', 'trips']">
             <a :href="'#' + section" class="group relative flex items-center justify-center w-3 h-3 rounded-full bg-gray-400 hover:bg-orange-600 transition-all duration-300">
-                <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold uppercase tracking-widest text-gray-800" x-text="section"></span>
+                <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold uppercase tracking-widest text-gray-800 whitespace-nowrap" x-text="section"></span>
             </a>
         </template>
         <div class="w-px h-24 bg-gray-300 mt-4"></div>
@@ -57,7 +57,6 @@
             <a href="#about" class="text-xs font-bold uppercase hover:text-orange-600">About</a>
             <a href="#gear" class="text-xs font-bold uppercase hover:text-orange-600">Gear</a>
             <a href="#trips" class="text-xs font-bold uppercase hover:text-orange-600">Trips</a>
-            <a href="#socials" class="text-xs font-bold uppercase hover:text-orange-600">Links</a>
         </div>
     </div>
 
@@ -71,20 +70,38 @@
             <span class="inline-block py-1 px-3 border border-white/30 rounded-full text-white text-xs uppercase tracking-[0.2em] mb-4 backdrop-blur-md">The Great Outdoors</span>
             <h1 class="text-6xl md:text-8xl font-bold text-white mb-6 leading-tight" x-text="profile.name"></h1>
             <p class="text-xl md:text-2xl text-gray-200 font-light max-w-2xl mx-auto" x-text="profile.tagline"></p>
-            <div class="mt-10">
+            
+            <div class="mt-8 flex flex-col items-center gap-6">
                 <a href="#trips" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105 shadow-xl">
                     View Latest Adventure
                 </a>
+                
+                <div class="flex items-center gap-6 mt-4 p-4 rounded-xl backdrop-blur-sm bg-white/10 border border-white/10">
+                    <template x-for="link in socials">
+                        <a :href="link.url" class="text-gray-300 hover:text-white transition-colors transform hover:-translate-y-1">
+                            <span class="sr-only" x-text="link.platform"></span>
+                            <div x-html="getIcon(link.platform)"></div>
+                        </a>
+                    </template>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="relative gs-reveal">
-                <div class="absolute top-4 -left-4 w-full h-full border-2 border-orange-600 rounded-2xl z-0"></div>
-                <img :src="profile.avatar" class="relative z-10 w-full rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" alt="Profile">
+            
+            <div class="grid grid-cols-2 gap-4 gs-reveal">
+                <div class="space-y-4 mt-8">
+                    <img :src="profile.gallery[0]" class="w-full h-48 md:h-64 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
+                    <img :src="profile.gallery[1]" class="w-full h-32 md:h-48 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div class="space-y-4">
+                    <img :src="profile.gallery[2]" class="w-full h-32 md:h-48 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
+                    <img :src="profile.avatar" class="w-full h-48 md:h-64 object-cover rounded-2xl shadow-lg grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
             </div>
+
             <div class="gs-reveal">
                 <h2 class="text-4xl font-bold mb-6 text-gray-900">About the Journey</h2>
                 <div class="w-16 h-1 bg-orange-600 mb-6"></div>
@@ -96,7 +113,7 @@
                     </div>
                     <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                         <div class="text-3xl font-bold text-gray-900" x-text="stats.peaks"></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Peaks This Year</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Peaks</div>
                     </div>
                     <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                         <div class="text-3xl font-bold text-gray-900" x-text="stats.elevation"></div>
@@ -107,33 +124,51 @@
         </div>
     </section>
 
-    <section id="gear" class="py-24 px-6 bg-gray-900 text-white relative overflow-hidden">
+    <section id="gear" class="py-24 px-6 bg-gray-900 text-white relative overflow-hidden" x-data="{ currentFilter: 'All' }">
         <div class="absolute top-0 right-0 text-gray-800 opacity-20 text-9xl font-bold -mr-12 -mt-12 select-none">GEAR</div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-12 text-center">
-                <h2 class="text-4xl font-bold mb-2">Essential Kit</h2>
-                <p class="text-gray-400">The gear that survives the elements. (Affiliate Links)</p>
+                <h2 class="text-4xl font-bold mb-4">Essential Kit</h2>
+                
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                    <template x-for="cat in ['All', 'Backpack', 'Camera', 'Footwear', 'Shelter']">
+                        <button 
+                            @click="currentFilter = cat"
+                            class="px-4 py-2 rounded-full text-sm font-bold border transition-all duration-300"
+                            :class="currentFilter === cat ? 'bg-orange-600 border-orange-600 text-white' : 'bg-transparent border-gray-600 text-gray-400 hover:border-white hover:text-white'"
+                            x-text="cat">
+                        </button>
+                    </template>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]">
                 <template x-for="item in gear" :key="item.name">
-                    <a :href="item.link" target="_blank" class="group block bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors duration-300 border border-gray-700 gs-reveal">
-                        <div class="h-48 overflow-hidden relative">
-                            <img :src="item.image" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" :alt="item.name">
-                            <div class="absolute top-2 right-2 bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                <span x-text="item.category"></span>
+                    <div x-show="currentFilter === 'All' || currentFilter === item.category"
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform scale-90"
+                         x-transition:enter-end="opacity-100 transform scale-100"
+                         class="h-full">
+                        
+                        <a :href="item.link" target="_blank" class="group h-full flex flex-col bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors duration-300 border border-gray-700">
+                            <div class="h-48 overflow-hidden relative shrink-0">
+                                <img :src="item.image" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" :alt="item.name">
+                                <div class="absolute top-2 right-2 bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded">
+                                    <span x-text="item.category"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors" x-text="item.name"></h3>
-                            <p class="text-gray-400 text-sm mb-4" x-text="item.desc"></p>
-                            <div class="flex items-center text-orange-500 text-sm font-bold uppercase tracking-wider">
-                                View Item 
-                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors" x-text="item.name"></h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow" x-text="item.desc"></p>
+                                <div class="flex items-center text-orange-500 text-sm font-bold uppercase tracking-wider mt-auto">
+                                    View Item 
+                                    <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+
+                    </div>
                 </template>
             </div>
         </div>
@@ -184,40 +219,44 @@
         </div>
     </section>
 
-    <section id="socials" class="py-24 px-6 bg-gray-900 text-center">
-        <div class="max-w-md mx-auto">
-            <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-4 border-orange-600">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-            </div>
-            <h2 class="text-3xl font-bold text-white mb-8">Connect on Socials</h2>
-            
-            <div class="space-y-4">
-                <template x-for="link in socials">
-                    <a :href="link.url" target="_blank" class="block w-full py-4 px-6 bg-gray-800 hover:bg-orange-600 text-white rounded-lg font-bold transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-between border border-gray-700">
-                        <span x-text="link.platform"></span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
-                </template>
-            </div>
-        </div>
-    </section>
-
     <footer class="bg-gray-950 py-12 text-center text-gray-500 text-sm">
+        <div class="mb-6 flex justify-center gap-6">
+            <template x-for="link in socials">
+                 <a :href="link.url" class="hover:text-orange-600 transition-colors" x-text="link.platform"></a>
+            </template>
+        </div>
         <p class="mt-2">Designed for Adventure.</p>
         <p class="mt-2">As an Amazon Associate, I earn from qualifying purchases.</p>
         <p>&copy; <span x-text="new Date().getFullYear()"></span> The Trailhead. All rights reserved.</p>
     </footer>
 
     <script>
-        // === THIS IS THE ONLY AREA YOU NEED TO EDIT TO UPDATE CONTENT ===
+        // Icons helper
+        function getIcon(platform) {
+            const icons = {
+                'Instagram': '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
+                'YouTube': '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
+                'TikTok': '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.03 5.84-.02 8.75-.08 1.4-.54 2.82-1.35 4.01-1.15 1.66-2.91 2.89-4.86 3.48-1.99.6-4.18.57-6.16-.1-1.99-.67-3.7-1.94-4.88-3.67-1.18-1.72-1.6-3.87-1.19-5.94.41-2.08 1.54-3.95 3.21-5.26 1.68-1.31 3.82-1.89 5.92-1.61v4.22c-1.3-.16-2.67.24-3.63 1.14-.97.9-1.46 2.26-1.3 3.56.16 1.3 1.05 2.45 2.27 2.94 1.22.49 2.65.25 3.63-.64.98-.89 1.48-2.22 1.4-3.54V.02z"/></svg>',
+                'Patreon': '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M15.386 1.432c-4.668 0-8.452 3.784-8.452 8.453 0 4.668 3.784 8.452 8.452 8.452 4.669 0 8.453-3.784 8.453-8.452 0-4.669-3.784-8.453-8.453-8.453zm-15.386 21.688h4.226v-15.68h-4.226v15.68z"/></svg>'
+            };
+            return icons[platform.split(' ')[0]] || icons['Instagram'];
+        }
+
+        // === UPDATED SITE DATA ===
         function siteData() {
             return {
                 profile: {
                     name: "Peak Tyler",
                     tagline: "Visual Storyteller & Alpine Guide",
-                    bio: "Chasing peaks and views worldwide. Colorado-based,  I climb, travel, and document wherever I end up. And this is where you can follow along: the trips I’m on, the routes I take, and the gear I rely on along the way.",
+                    bio: "Chasing peaks and views worldwide. Colorado-based, I climb, travel, and document wherever I end up. And this is where you can follow along: the trips I’m on, the routes I take, and the gear I rely on along the way.",
                     heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-                    avatar: "https://fv5-2.files.fm/thumb_show.php?i=f5q45zy9n9&view&v=1&PHPSESSID=7e5ec14097419c8a38662c595525b158790ddfcf"
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Changed to better avatar
+                    // ADDED GALLERY IMAGES
+                    gallery: [
+                        "https://images.unsplash.com/photo-1526772662000-3f88f1056e8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        "https://images.unsplash.com/photo-1533240332313-0dbdd312e6db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    ]
                 },
                 stats: {
                     countries: 16,
@@ -252,6 +291,21 @@
                         desc: "Lightweight, freestanding, and handles high winds beautifully.",
                         image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                         link: "#"
+                    },
+                    // Added extra items to demonstrate filter
+                    {
+                        name: "Canon 16-35mm",
+                        category: "Camera",
+                        desc: "The wide angle lens essential for massive landscape shots.",
+                        image: "https://images.unsplash.com/photo-1617005082133-548c4dd27f35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        link: "#"
+                    },
+                    {
+                        name: "Hoka Speedgoat",
+                        category: "Footwear",
+                        desc: "For when I need to move fast and light on trail.",
+                        image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        link: "#"
                     }
                 ],
                 trips: [
@@ -261,7 +315,7 @@
                         location: "Washington, USA",
                         difficulty: "Hard",
                         duration: "2 Days",
-                        snippet: "A gruelling 18-mile traverse through alpine lakes and granite peaks. We encountered mountain goats, early snow, and some of the best sunrises of my life.",
+                        snippet: "A gruelling 18-mile traverse through alpine lakes and granite peaks. We encountered mountain goats, early snow, and some the best sunrises of my life.",
                         image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                         waypoints: ["Colchuck Lake", "Aasgard Pass", "Core Zone"],
                         fullStory: "The ascent up Aasgard Pass gained 2,000ft in under a mile. It was brutal, but the view of Colchuck Lake shrinking beneath us was worth every step. We camped in the Core Zone (permit required!) and woke up to snow dust on the tent."
@@ -290,7 +344,6 @@
         // === GSAP ANIMATIONS ===
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animate elements as they scroll into view
         const revealElements = document.querySelectorAll(".gs-reveal");
         revealElements.forEach(element => {
             gsap.fromTo(element, 
@@ -307,7 +360,6 @@
             );
         });
 
-        // Rotate Compass on Scroll
         gsap.to(".compass-spin", {
             rotation: 360,
             scrollTrigger: {
