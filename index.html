@@ -199,8 +199,10 @@
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 gs-reveal">
                     <div class="flex flex-col md:flex-row gap-8">
                         <div class="md:w-1/3 shrink-0">
-                            <div class="relative h-64 md:h-full min-h-[250px] rounded-xl overflow-hidden">
-                                <img :src="trip.image" class="absolute inset-0 w-full h-full object-cover" :alt="trip.title">
+                            <div class="relative h-64 md:h-full min-h-[250px] rounded-xl overflow-hidden bg-gray-200">
+                                <template x-if="trip.image">
+                                    <img :src="trip.image" class="absolute inset-0 w-full h-full object-cover" :alt="trip.title">
+                                </template>
                                 <div class="absolute bottom-0 left-0 bg-black/60 text-white px-3 py-1 text-xs font-mono backdrop-blur-sm rounded-tr-lg">
                                     <span x-text="trip.date"></span> | <span x-text="trip.location"></span>
                                 </div>
@@ -213,19 +215,22 @@
                             </div>
                             <h3 class="text-2xl md:text-3xl font-bold mb-3 text-gray-900" x-text="trip.title"></h3>
                             <p class="text-gray-600 mb-6 line-clamp-3" x-text="trip.snippet"></p>
+                            
                             <div x-data="{ expanded: false }">
                                 <button @click="expanded = !expanded" class="text-orange-600 font-bold hover:text-orange-800 flex items-center gap-2">
-                                    <span x-text="expanded ? 'Close Itinerary' : 'Read Full Log'"></span>
+                                    <span x-text="expanded ? 'Close Details' : 'View Itinerary'"></span>
                                     <svg :class="{'rotate-180': expanded}" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </button>
+                                
                                 <div x-show="expanded" x-collapse class="mt-4 pt-4 border-t border-gray-200">
-                                    <h4 class="font-bold text-gray-900 mb-2">Key Waypoints:</h4>
+                                    <h4 class="font-bold text-gray-900 mb-2">Trip Objectives:</h4>
                                     <ul class="list-disc list-inside text-gray-600 space-y-1 mb-4">
-                                        <template x-for="point in trip.waypoints">
-                                            <li x-text="point"></li>
+                                        <template x-for="goal in trip.goals">
+                                            <li x-text="goal"></li>
                                         </template>
                                     </ul>
-                                    <p class="text-gray-600 italic" x-text="trip.fullStory"></p>
+                                    <h4 class="font-bold text-gray-900 mb-1">The Plan:</h4>
+                                    <p class="text-gray-600 italic" x-text="trip.plan"></p>
                                 </div>
                             </div>
                         </div>
@@ -333,26 +338,26 @@
                 ],
                 trips: [
                     {
-                        title: "The Enchantments Thru-Hike",
-                        date: "Oct 2023",
-                        location: "Washington, USA",
-                        difficulty: "Hard",
-                        duration: "2 Days",
-                        snippet: "A gruelling 18-mile traverse through alpine lakes and granite peaks. We encountered mountain goats, early snow, and some the best sunrises of my life.",
-                        image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                        waypoints: ["Colchuck Lake", "Aasgard Pass", "Core Zone"],
-                        fullStory: "The ascent up Aasgard Pass gained 2,000ft in under a mile. It was brutal, but the view of Colchuck Lake shrinking beneath us was worth every step. We camped in the Core Zone (permit required!) and woke up to snow dust on the tent."
+                        title: "Hawaii Expedition",
+                        date: "Jan 17-27, 2026",
+                        location: "Hawaii, USA",
+                        difficulty: "Varied",
+                        duration: "10 Days",
+                        snippet: "Trading the Colorado snow for the jungle. Ten days of capturing the contrast between the lush ridges of the Na Pali coast and the Waimea Canyon.",
+                        image: "https://images.unsplash.com/photo-1542259698-3e98103d1976?auto=format&fit=crop&w=800&q=80",
+                        goals: ["Na Pali Coast", "Underwater Testing", "Waimea Canyon"],
+                        plan: "This trip is purely about creative exploration. I'll be testing a new underwater housing rig and hiking the ridge lines to get shots of the valleys opening up to the ocean. Less mountaineering, more endurance hiking."
                     },
                     {
-                        title: "Dolomites Alta Via 1",
-                        date: "July 2023",
-                        location: "Italy",
-                        difficulty: "Moderate",
-                        duration: "7 Days",
-                        snippet: "Hut-to-hut hiking at its finest. Italian cuisine, jagged limestone peaks, and WW1 history embedded in the mountains.",
-                        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                        waypoints: ["Lago di Braies", "Lagazuoi", "Cinque Torri"],
-                        fullStory: "The highlight was the rifugios. Imagine hiking 10 miles and arriving at a warm hut serving fresh pasta and wine. The tunnels at Lagazuoi were a haunting reminder of the history here."
+                        title: "Mt St Helens Winter Ascent",
+                        date: "Feb 1-3, 2026",
+                        location: "Washington, USA",
+                        difficulty: "Hard",
+                        duration: "3 Days",
+                        snippet: "A rapid turnaround from the tropics to the glaciated rim. This will be a winter summit attempt on skis/crampons to prep for the 2026 peak series.",
+                        image: "https://images.unsplash.com/photo-1596326078235-51d019f359c5?auto=format&fit=crop&w=800&q=80",
+                        goals: ["Winter Summit (8,363')", "Glissade Descent", "Gear Test"],
+                        plan: "The weather window in February is tight. We are planning an early alpine start to hit the rim by sunrise. This is the first technical climb of the year and a crucial test for my winter layering system."
                     }
                 ],
                 socials: [
