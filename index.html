@@ -150,16 +150,31 @@
         </div>
     </section>
 
-    <section id="gear" class="py-24 px-6 bg-gray-900 text-white relative overflow-hidden" x-data="{ currentFilter: 'All' }">
+    <section id="gear" class="py-24 px-6 bg-gray-900 text-white relative overflow-hidden" 
+             x-data="{ 
+                 currentFilter: 'All', 
+                 limit: 8,
+                 get filteredItems() {
+                     return this.currentFilter === 'All' 
+                         ? this.gear 
+                         : this.gear.filter(item => item.category === this.currentFilter);
+                 },
+                 get visibleItems() {
+                    return this.filteredItems.slice(0, this.limit);
+                 }
+             }">
+        
         <div class="absolute top-0 right-0 text-gray-800 opacity-20 text-9xl font-bold -mr-12 -mt-12 select-none">GEAR</div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-12 text-center">
-                <h2 class="text-4xl font-bold mb-4">Essential Kit</h2>
+                <h2 class="text-4xl font-bold mb-4">Gear Locker</h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">The exact kit I'm using for the 2026 World Tour.</p>
+                
                 <div class="flex flex-wrap justify-center gap-3 mt-6">
-                    <template x-for="cat in ['All', 'Backpack', 'Camera', 'Footwear', 'Shelter']">
+                    <template x-for="cat in ['All', 'Apparel', 'Footwear', 'Camp & Hike', 'Mountaineering', 'Accessories', 'Electronics']">
                         <button 
-                            @click="currentFilter = cat"
+                            @click="currentFilter = cat; limit = 8"
                             class="px-4 py-2 rounded-full text-sm font-bold border transition-all duration-300"
                             :class="currentFilter === cat ? 'bg-orange-600 border-orange-600 text-white' : 'bg-transparent border-gray-600 text-gray-400 hover:border-white hover:text-white'"
                             x-text="cat">
@@ -169,9 +184,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]">
-                <template x-for="item in gear" :key="item.name">
-                    <div x-show="currentFilter === 'All' || currentFilter === item.category"
-                         x-transition:enter="transition ease-out duration-300"
+                <template x-for="item in visibleItems" :key="item.name">
+                    <div x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 transform scale-90"
                          x-transition:enter-end="opacity-100 transform scale-100"
                          class="h-full">
@@ -194,6 +208,19 @@
                     </div>
                 </template>
             </div>
+
+            <div x-show="visibleItems.length < filteredItems.length" class="text-center mt-12">
+                <button 
+                    @click="limit += 8"
+                    class="bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-full font-bold uppercase tracking-wider transition-all duration-300">
+                    Load More Gear
+                </button>
+            </div>
+            
+            <div x-show="visibleItems.length === 0" class="text-center py-12 text-gray-500 italic">
+                No gear added to this category yet.
+            </div>
+
         </div>
     </section>
 
@@ -311,33 +338,177 @@
                     elevation: "14.4k"
                 },
                 gear: [
+                    // --- APPAREL ---
                     {
-                        name: "Osprey Atmos AG 65",
-                        category: "Backpack",
-                        desc: "The anti-gravity suspension system makes 40lbs feel like 20lbs.",
-                        image: "https://i.postimg.cc/SNDLb12f/Screenshot_2025_12_19_215421.png",
-                        link: "https://amzn.to/4p3feCQ"
+                        name: "Arc'teryx Atom Hoody",
+                        category: "Apparel",
+                        desc: "The single most versatile insulation layer I own.",
+                        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
                     },
                     {
-                        name: "DJI Osmo Pocket 3",
-                        category: "Camera",
-                        desc: "4K/120fps, 3-axis stabilization, and Face Tracking. The ultimate pocket vlogging tool.",
-                        image: "https://i.postimg.cc/GhqPng8j/Screenshot_2025_12_19_215518.png",
-                        link: "https://amzn.to/4oYhxXL"
+                        name: "Arc'teryx Alpha LT Shell",
+                        category: "Apparel",
+                        desc: "Bombproof protection against high-alpine storms.",
+                        image: "https://images.unsplash.com/photo-1545911825-5b8c19fb713a?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
                     },
                     {
-                        name: "Salomon Quest 4 GORE-TEX",
+                        name: "Nike ACG Summit Pants",
+                        category: "Apparel",
+                        desc: "Rugged, stretchy, and perfect for movement.",
+                        image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+
+                    // --- FOOTWEAR ---
+                    {
+                        name: "Salomon Quest 4 GTX",
                         category: "Footwear",
                         desc: "Vibram sole grip is unmatched on wet granite.",
                         image: "https://i.postimg.cc/X7QK61Gf/Screenshot_2025_12_19_220151.png",
                         link: "https://amzn.to/3KSOd7h"
                     },
                     {
+                        name: "La Sportiva Nepal Cube",
+                        category: "Footwear",
+                        desc: "The gold standard for technical mountaineering boots.",
+                        image: "https://images.unsplash.com/photo-1542840410-3092f48f6dbf?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+
+                    // --- CAMP & HIKE ---
+                    {
+                        name: "Osprey Atmos AG 65",
+                        category: "Camp & Hike",
+                        desc: "The anti-gravity suspension system makes 40lbs feel like 20lbs.",
+                        image: "https://i.postimg.cc/SNDLb12f/Screenshot_2025_12_19_215421.png",
+                        link: "https://amzn.to/4p3feCQ"
+                    },
+                    {
+                        name: "Jones DSCNT Snow Pack",
+                        category: "Camp & Hike",
+                        desc: "Specific for winter backcountry missions.",
+                        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                        link: "#"
+                    },
+                    {
                         name: "MSR Elixir 1",
-                        category: "Shelter",
+                        category: "Camp & Hike",
                         desc: "Lightweight, freestanding, and handles high winds beautifully.",
                         image: "https://i.postimg.cc/GmmWbfMw/Screenshot-2025-12-19-221822.png",
                         link: "https://amzn.to/4p8blwu"
+                    },
+                    {
+                        name: "Sleeping Bag 0°F",
+                        category: "Camp & Hike",
+                        desc: "Synthetic fill for reliable warmth even when damp.",
+                        image: "https://images.unsplash.com/photo-1623916781498-5c4d29f86445?auto=format&fit=crop&w=600&q=80",
+                        link: "#"
+                    },
+                    {
+                        name: "Insulated Sleeping Pad",
+                        category: "Camp & Hike",
+                        desc: "High R-value is critical for sleeping on snow.",
+                        image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=600&q=80",
+                        link: "#"
+                    },
+                    {
+                        name: "Trekking Pole & Snowshoe Set",
+                        category: "Camp & Hike",
+                        desc: "Amazon essentials. They get the job done for cheap.",
+                        image: "https://images.unsplash.com/photo-1545652634-123405f6cb15?auto=format&fit=crop&w=600&q=80",
+                        link: "#"
+                    },
+
+                    // --- MOUNTAINEERING ---
+                    {
+                        name: "Black Diamond Raven Axe",
+                        category: "Mountaineering",
+                        desc: "Classic stainless steel head. Essential for self-arrest.",
+                        image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Crampons (Steel)",
+                        category: "Mountaineering",
+                        desc: "Required traction for glacier travel and steep ice.",
+                        image: "https://images.unsplash.com/photo-1542359649-31e03cd4d909?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Climbing Helmet",
+                        category: "Mountaineering",
+                        desc: "Lightweight protection from rockfall.",
+                        image: "https://images.unsplash.com/photo-1521336575822-6da63fb45455?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+
+                    // --- ACCESSORIES ---
+                    {
+                        name: "Black Diamond Headlamp",
+                        category: "Accessories",
+                        desc: "My primary light source. Reliable and bright.",
+                        image: "https://images.unsplash.com/photo-1502920514313-52581002a659?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Backup LED Headlamp",
+                        category: "Accessories",
+                        desc: "Cheap Amazon backup. Two is one, one is none.",
+                        image: "https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Arc'teryx Beanie",
+                        category: "Accessories",
+                        desc: "Merino wool warmth. I pack two of these.",
+                        image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Winter Gloves (Fingers)",
+                        category: "Accessories",
+                        desc: "Dexterity for handling ropes and zippers.",
+                        image: "https://images.unsplash.com/photo-1598418041926-44487f8aa850?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Expedition Mittens",
+                        category: "Accessories",
+                        desc: "For the coldest summit days when fingers freeze.",
+                        image: "https://images.unsplash.com/photo-1599386766442-78d12d45809f?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Merino Wool Socks",
+                        category: "Accessories",
+                        desc: "The unsung heroes of every trip.",
+                        image: "https://images.unsplash.com/photo-1559869502-39c5b2f6b86d?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+
+                    // --- ELECTRONICS ---
+                    {
+                        name: "DJI Osmo Pocket 3",
+                        category: "Electronics",
+                        desc: "4K/120fps, 3-axis stabilization. The ultimate pocket vlogging tool.",
+                        image: "https://i.postimg.cc/GhqPng8j/Screenshot_2025_12_19_215518.png",
+                        link: "https://amzn.to/4oYhxXL"
+                    },
+                    {
+                        name: "DJI Action Camera",
+                        category: "Electronics",
+                        desc: "Rugged and waterproof for the harshest conditions.",
+                        image: "https://images.unsplash.com/photo-1508960653696-654cb7883256?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
+                    },
+                    {
+                        name: "Travel Tripod",
+                        category: "Electronics",
+                        desc: "Carbon fiber, lightweight stability for long exposures.",
+                        image: "https://images.unsplash.com/photo-1485637257321-2e1d739c9472?auto=format&fit=crop&w=600&q=80", 
+                        link: "#"
                     }
                 ],
                 trips: [
