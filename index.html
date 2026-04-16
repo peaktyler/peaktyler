@@ -273,13 +273,13 @@
                                 </button>
                                 
                                 <div x-show="expanded" x-collapse class="mt-4 pt-4 border-t border-gray-200">
-                                    <h4 class="font-bold text-gray-900 mb-2">Trip Objectives:</h4>
+                                    <h4 class="font-bold text-gray-900 mb-2" x-text="trip.status === 'Past' ? 'What I Did:' : 'Trip Objectives:'"></h4>
                                     <ul class="list-disc list-inside text-gray-600 space-y-1 mb-4">
                                         <template x-for="goal in trip.goals">
                                             <li x-text="goal"></li>
                                         </template>
                                     </ul>
-                                    <h4 class="font-bold text-gray-900 mb-1">The Plan:</h4>
+                                    <h4 class="font-bold text-gray-900 mb-1" x-text="trip.status === 'Past' ? 'Trip Overview:' : 'The Plan:'"></h4>
                                     <p class="text-gray-600 italic" x-text="trip.plan"></p>
                                 </div>
                             </div>
@@ -532,43 +532,76 @@
                         link: "https://amzn.to/4qXS8Pu"
                     }
                 ],
-                // TRIPS DATA UPDATED WITH STATUS FLAGS
+                // TRIPS DATA
                 trips: [
                     {
                         title: "Hawaii: Mauna Kea & Islands",
-                        date: "January, 2026",
+                        date: "January 2026",
                         location: "Hawaii, USA",
                         duration: "10 Days",
                         status: "Past",
-                        snippet: "Kickstarting the 12 World Tour Peaks series (1/12). From the high-altitude summit of Mauna Kea to the tropical trails of Kauaʻi.",
+                        snippet: "Kickstarted the 12 World Tour Peaks series (1/12). A mix of high-altitude summit, exposed ridge hikes, and tropical terrain across three islands.",
                         image: "https://www.aslo.org/wp-content/uploads/kauai.jpg",
-                        goals: ["Mauna Kea Summit (13,803')", "Oʻahu Exploration", "Kauaʻi Hiking"],
-                        plan: "The main objective is Mauna Kea—technically the tallest mountain on earth from base to peak. After that, I'm island hopping to Oʻahu and Kauaʻi to find the best hiking spots and relaxed sunsets before winter training starts."
+                        goals: ["Big Island: Summited Mauna Kea (13,803’)", "O‘ahu: Three Peaks Trail + Pali Notches", "Kaua‘i: Kalalau Trail + canyon detour", "Pu‘u O Kila Lookout"],
+                        plan: "The main objective was Mauna Kea—technically the tallest mountain on earth from base to peak. After that, I island hopped to Oʻahu and Kauaʻi for ridge hikes and canyon trails."
                     },
                     {
-                        title: "Mt St Helens Winter Climb",
-                        date: "February, 2026",
-                        location: "Washington, USA",
+                        title: "Mount Sneffels Winter Ascent",
+                        date: "February 2026",
+                        location: "Colorado, USA",
                         duration: "1 Day",
                         status: "Past",
-                        snippet: "World Tour Peak 2/12. A strict winter gear test climbing the Worm Flows route to catch the sunrise over the crater rim.",
-                        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg/1200px-MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg",
-                        goals: ["Summit (8,363')", "Sunrise at Rim", "Winter Gear Test"],
-                        plan: "This is a one-day push. No skis, just boots and crampons. I’m hitting the trail early to test my layering systems in the cold, aiming to reach the rim at sunrise, with route and timing dictated by avalanche conditions and weather windows."
+                        snippet: "World Tour Peak 2/12. A 13-hour winter ascent with added distance and technical conditions.",
+                        image: "",
+                        goals: ["Summited Mount Sneffels (14,158’)", "Alpine start (~3:30 AM)", "+4 miles each way due to road closure", "Crampons + ice axe required for final ascent"],
+                        plan: "The road closure added serious mileage, turning this into a massive 13-hour push. The final couloir required crampons and an ice axe to safely navigate the winter conditions to the summit."
                     },
                     {
-                        title: "Mt Hood Summit",
-                        date: "May, 2026",
+                        title: "Acatenango & Fuego",
+                        date: "March 2026",
+                        location: "Guatemala",
+                        duration: "2 Days",
+                        status: "Past",
+                        snippet: "World Tour Peak 3/12. Overnight volcano experience with constant eruptions from Volcán Fuego.",
+                        image: "",
+                        goals: ["Guided climb with Soy Tours", "Hike to Acatenango base camp", "Sunset hike toward Fuego to watch eruptions", "Summit push for sunrise on Acatenango", "Overnight at base camp, descend next morning"],
+                        plan: "Hiked up to base camp on Acatenango, then pushed out toward Fuego at sunset to watch the active eruptions. Woke up in the dark the next morning for the final summit push to catch the sunrise."
+                    },
+                    {
+                        title: "Mount Hood Summit",
+                        date: "Late April 2026",
                         location: "Oregon, USA",
                         duration: "2 Days",
                         status: "Upcoming",
                         snippet: "Continuing the 12 Peaks project during my 40-day truck road trip. Aiming for a South Side summit and getting some cinematic, moody shots.",
-                        image: "", // Leave empty for now, the UI will show a placeholder
-                        goals: ["South Side Summit (11,240')", "Truck Life remote editing", "Capture cinematic drone footage"],
-                        plan: "Part of my 40-day road trip living out of the truck. The plan is to catch a solid weather window, start alpine-early, and get some dramatic, non-generic footage of the climb before continuing the drive."
+                        image: "",
+                        goals: ["South Side summit via Pearly Gates", "Sunrise summit push", "Capture cinematic alpine footage"],
+                        plan: "Targeting a clean weather window for a standard south side ascent. Early alpine start to reach the summit at sunrise, moving through the Pearly Gates depending on conditions."
+                    },
+                    {
+                        title: "40-Day Pacific Northwest Road Trip",
+                        date: "Late April to Late May 2026",
+                        location: "Pacific Northwest, USA",
+                        duration: "40 Days",
+                        status: "Upcoming",
+                        snippet: "Living out of my truck for 40 days, chasing the most cinematic landscapes down the coast and through the national parks.",
+                        image: "",
+                        goals: ["Oregon Coast + waterfall corridor", "Redwoods exploration", "California national parks"],
+                        plan: "Road tripping the Pacific Northwest and Northern California — Oregon coast, Panther Creek Falls and the Gorge, Redwoods, then down through Castle Crags, Yosemite, Kings Canyon, and Sequoia. Focus on hitting dramatic landscapes and building out the series."
+                    },
+                    {
+                        title: "Mount Rainier Summit",
+                        date: "Late May 2026",
+                        location: "Washington, USA",
+                        duration: "2 Days",
+                        status: "Upcoming",
+                        snippet: "First true glacier climb of the series. Heavy crevasse navigation and rope team travel.",
+                        image: "",
+                        goals: ["Glaciated summit (14,410’)", "Crevasse navigation + rope team travel", "First true glacier climb of the series"],
+                        plan: "Climbing via the standard guided route (Disappointment Cleaver). Two-day push with a glacier camp, rope team travel, and a summit attempt early morning depending on conditions."
                     }
                 ],
-                // SOCIALS UPDATED
+                // SOCIALS
                 socials: [
                     { platform: "Instagram", url: "https://www.instagram.com/peaktylerr" },
                     { platform: "TikTok", url: "https://www.tiktok.com/@peaktyler" },
