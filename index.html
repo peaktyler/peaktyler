@@ -6,18 +6,21 @@
 <title>PNW Field Guide — Mega American</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <span class="brand-mark">MEGA AMERICAN</span>
-    <span class="brand-divider">/</span>
-    <span class="brand-product">PNW Field Guide</span>
+    <span class="brand-logo">🏔️</span>
+    <span class="brand-name">Mega American</span>
   </div>
-  <a href="#checkout" class="nav-cta">Get the guide →</a>
+  <nav class="site-nav">
+    <a href="#" class="nav-link">Guides</a>
+    <a href="#" class="nav-link">How it works</a>
+    <a href="#checkout" class="nav-cta">Get the guide</a>
+  </nav>
 </header>
 
 <main class="hero">
@@ -30,14 +33,15 @@
 
         <div class="screen active" data-screen="0">
           <div class="screen-topbar">
-            <span>Day 2 of 5</span>
+            <span class="screen-title">Day 2 of 5</span>
             <span class="pill">Offline ✓</span>
           </div>
           <div class="screen-map">
             <svg viewBox="0 0 300 180" preserveAspectRatio="none">
-              <polyline class="topo-line topo-1" points="0,140 40,120 70,132 110,80 150,95 190,50 230,70 260,40 300,55"/>
-              <polyline class="topo-line topo-2" points="0,160 40,150 70,158 110,120 150,130 190,90 230,105 260,85 300,95"/>
-              <circle class="map-pin" cx="150" cy="95" r="5"/>
+              <path d="M0,150 Q75,120 150,130 T300,90 L300,180 L0,180 Z" fill="var(--map-fill)"/>
+              <polyline class="route-line" points="20,140 70,125 110,132 150,95 190,105 230,70 270,80"/>
+              <circle class="map-pin" cx="150" cy="95" r="6"/>
+              <circle class="map-pin-outer" cx="150" cy="95" r="11"/>
             </svg>
           </div>
           <div class="screen-caption">Grand Valley → Cameron Basin</div>
@@ -50,20 +54,20 @@
 
         <div class="screen" data-screen="1">
           <div class="screen-topbar">
-            <span>Water Sources</span>
+            <span class="screen-title">Water Sources</span>
             <span class="pill">Live notes</span>
           </div>
           <ul class="screen-list">
-            <li><span class="dot dot-amber"></span>Cameron Creek — reliable, mi 2.1</li>
-            <li><span class="dot dot-amber"></span>Basin tarn — seasonal, mi 4.6</li>
-            <li><span class="dot dot-rust"></span>Last source before pass, mi 6.0</li>
+            <li><span class="dot dot-blue"></span>Cameron Creek — reliable, mi 2.1</li>
+            <li><span class="dot dot-blue"></span>Basin tarn — seasonal, mi 4.6</li>
+            <li><span class="dot dot-amber"></span>Last source before pass, mi 6.0</li>
           </ul>
           <div class="screen-caption">Marked by hikers 6 days ago</div>
         </div>
 
         <div class="screen" data-screen="2">
           <div class="screen-topbar">
-            <span>Pack List</span>
+            <span class="screen-title">Pack List</span>
             <span class="pill">32.4 lbs</span>
           </div>
           <ul class="screen-list checklist">
@@ -84,51 +88,51 @@
       <button class="screen-dot" data-goto="1" aria-label="Water sources screen"></button>
       <button class="screen-dot" data-goto="2" aria-label="Pack list screen"></button>
     </div>
+
+    <div class="rating-badge">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text"><strong>4.9</strong> from 340 hikers</span>
+    </div>
   </section>
 
   <!-- CENTER: ITINERARY INFO -->
   <section class="info-col">
-    <div class="eyebrow">
-      <svg class="eyebrow-chart" viewBox="0 0 120 24" preserveAspectRatio="none">
-        <polyline points="0,20 15,14 30,17 45,6 60,10 75,2 90,8 105,4 120,9"/>
-      </svg>
-      <span>5-DAY ROUTE · OLYMPIC PENINSULA</span>
-    </div>
+    <div class="eyebrow">5-DAY ROUTE · OLYMPIC PENINSULA</div>
 
     <h1 class="headline">The Olympic Peninsula Traverse</h1>
     <p class="subhead">Hurricane Ridge to Deer Park, the long way. Every mile of elevation, every water source, and every permit rule — mapped out before you find out the hard way.</p>
 
     <ol class="itinerary">
       <li class="leg">
-        <div class="leg-day">Day 1</div>
+        <div class="leg-day">1</div>
         <div class="leg-body">
           <div class="leg-route">Hurricane Ridge → Grand Valley</div>
           <div class="leg-meta"><span>7.2 mi</span><span>+2,100 ft</span><span>Camp at Grand Lake</span></div>
         </div>
       </li>
       <li class="leg">
-        <div class="leg-day">Day 2</div>
+        <div class="leg-day">2</div>
         <div class="leg-body">
           <div class="leg-route">Grand Valley → Cameron Basin</div>
           <div class="leg-meta"><span>6.8 mi</span><span>+1,400 ft</span><span>Water at mi 2.1</span></div>
         </div>
       </li>
       <li class="leg">
-        <div class="leg-day">Day 3</div>
+        <div class="leg-day">3</div>
         <div class="leg-body">
           <div class="leg-route">Cameron Basin → Sunnybrook Meadows</div>
           <div class="leg-meta"><span>5.1 mi</span><span>+900 ft</span><span>Best sunset ridge</span></div>
         </div>
       </li>
       <li class="leg">
-        <div class="leg-day">Day 4</div>
+        <div class="leg-day">4</div>
         <div class="leg-body">
           <div class="leg-route">Sunnybrook → Deer Park</div>
           <div class="leg-meta"><span>8.4 mi</span><span>+1,800 ft</span><span>Exposed ridgeline</span></div>
         </div>
       </li>
       <li class="leg">
-        <div class="leg-day">Day 5</div>
+        <div class="leg-day">5</div>
         <div class="leg-body">
           <div class="leg-route">Deer Park → Trailhead</div>
           <div class="leg-meta"><span>4.6 mi</span><span>−2,200 ft</span><span>Out by early afternoon</span></div>
@@ -136,12 +140,27 @@
       </li>
     </ol>
 
-    <div class="feature-chips">
-      <span class="chip">Offline trail maps</span>
-      <span class="chip">Water source markers</span>
-      <span class="chip">Permit checklist</span>
-      <span class="chip">Campsite photos</span>
-      <span class="chip">Shared pack list</span>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🗺️</span>
+        <span>Offline trail maps</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💧</span>
+        <span>Water source markers</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📋</span>
+        <span>Permit checklist</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📸</span>
+        <span>Campsite photos</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎒</span>
+        <span>Shared pack list</span>
+      </div>
     </div>
   </section>
 
@@ -169,6 +188,11 @@
         <span class="guarantee-mark">✓</span>
         <span>If a trail's closed or rerouted, we update the guide — you don't buy it twice.</span>
       </div>
+    </div>
+
+    <div class="trust-stats">
+      <div class="trust-stat"><strong>12K+</strong><span>guides sold</span></div>
+      <div class="trust-stat"><strong>4.9</strong><span>avg. rating</span></div>
     </div>
   </aside>
 
