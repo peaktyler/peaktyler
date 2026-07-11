@@ -1,618 +1,183 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peak Tyler | Adventure Log</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
-        
-        body { font-family: 'Outfit', sans-serif; }
-        h1, h2, h3, .heading-font { font-family: 'Space Grotesk', sans-serif; }
-        
-        /* Topo Map Background */
-        .topo-bg {
-            background-color: #f3f4f6;
-            background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topoPattern' patternUnits='userSpaceOnUse' width='500' height='500' viewBox='0 0 500 500'%3E%3Cpath d='M0 250 Q 125 100, 250 250 Q 375 400, 500 250 M0 270 Q 125 120, 250 270 Q 375 420, 500 270 M0 230 Q 125 80, 250 230 Q 375 380, 500 230 M0 300 Q 125 150, 250 300 Q 375 450, 500 300 M0 200 Q 125 50, 250 200 Q 375 350, 500 200 M0 350 Q 125 200, 250 350 Q 375 500, 500 350 M0 150 Q 125 0, 250 150 Q 375 300, 500 150' stroke='%239ca3af' stroke-opacity='0.3' fill='none' stroke-width='1.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23topoPattern)'/%3E%3C/svg%3E");
-            background-size: 500px 500px;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1f2937; }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Text Shadow for Hero */
-        .text-shadow {
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNW Field Guide — Mega American</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="text-gray-800 topo-bg overflow-x-hidden" x-data="siteData()">
+<body>
 
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
-         x-data="{ mobileOpen: false, scrolled: false }"
-         @scroll.window="scrolled = (window.pageYOffset > 50)"
-         :class="scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-6'">
-        
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-white tracking-tighter flex items-center gap-3 group">
-                <div class="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center relative transition-transform duration-700 group-hover:rotate-180">
-                    <div class="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[10px] border-b-orange-600 mb-1"></div>
-                </div>
-                PEAK TYLER
-            </a>
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark">MEGA AMERICAN</span>
+    <span class="brand-divider">/</span>
+    <span class="brand-product">PNW Field Guide</span>
+  </div>
+  <a href="#checkout" class="nav-cta">Get the guide →</a>
+</header>
 
-            <div class="hidden md:flex items-center gap-8">
-                <template x-for="item in ['Home', 'About', 'Gear', 'Trips']">
-                    <a :href="'#' + item.toLowerCase()" 
-                       class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-white hover:text-orange-500 transition-colors"
-                       x-text="item"></a>
-                </template>
-            </div>
+<main class="hero">
 
-            <button @click="mobileOpen = !mobileOpen" class="md:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+  <!-- LEFT: MEDIA PREVIEW -->
+  <section class="media-col" aria-label="App preview">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" id="phoneScreen">
+
+        <div class="screen active" data-screen="0">
+          <div class="screen-topbar">
+            <span>Day 2 of 5</span>
+            <span class="pill">Offline ✓</span>
+          </div>
+          <div class="screen-map">
+            <svg viewBox="0 0 300 180" preserveAspectRatio="none">
+              <polyline class="topo-line topo-1" points="0,140 40,120 70,132 110,80 150,95 190,50 230,70 260,40 300,55"/>
+              <polyline class="topo-line topo-2" points="0,160 40,150 70,158 110,120 150,130 190,90 230,105 260,85 300,95"/>
+              <circle class="map-pin" cx="150" cy="95" r="5"/>
+            </svg>
+          </div>
+          <div class="screen-caption">Grand Valley → Cameron Basin</div>
+          <div class="screen-stats">
+            <div><span class="stat-num">6.8</span><span class="stat-label">miles</span></div>
+            <div><span class="stat-num">1,400</span><span class="stat-label">ft gain</span></div>
+            <div><span class="stat-num">4h 10m</span><span class="stat-label">est. time</span></div>
+          </div>
         </div>
 
-        <div x-show="mobileOpen" 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-4"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             @click.away="mobileOpen = false" 
-             class="md:hidden absolute top-full left-0 w-full bg-gray-900 border-t border-gray-800 p-6 flex flex-col gap-4 shadow-xl">
-             <template x-for="item in ['Home', 'About', 'Gear', 'Trips']">
-                <a :href="'#' + item.toLowerCase()" 
-                   @click="mobileOpen = false"
-                   class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2"
-                   x-text="item"></a>
-            </template>
-        </div>
-    </nav>
-
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img :src="profile.heroImage" class="w-full h-full object-cover opacity-90" alt="Hero Background">
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
-        </div>
-        
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto gs-reveal pt-20">
-            <h1 class="text-6xl md:text-8xl font-bold text-white mb-8 leading-tight text-shadow" x-text="profile.name"></h1>
-            
-            <a href="#contact" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full uppercase tracking-wider transition-all transform hover:-translate-y-1 shadow-lg mb-8">
-                Contact
-            </a>
-            
-            <div class="mt-4 flex flex-col items-center justify-center gap-4">
-                <template x-for="link in socials">
-                    <a :href="link.url" 
-                       class="glass-btn w-72 text-white hover:bg-orange-600 hover:border-orange-600 px-6 py-3 rounded-full font-bold text-sm tracking-wide transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                        <div x-html="getIcon(link.platform)" class="w-5 h-5 shrink-0"></div>
-                        <span x-text="link.platform"></span>
-                    </a>
-                </template>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="grid grid-cols-2 gap-4 gs-reveal">
-                <div class="space-y-4 mt-8">
-                    <img :src="profile.gallery[0]" class="w-full h-48 md:h-64 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
-                    <img :src="profile.gallery[1]" class="w-full h-32 md:h-48 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
-                </div>
-                <div class="space-y-4">
-                    <img :src="profile.gallery[2]" class="w-full h-32 md:h-48 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
-                    <img :src="profile.avatar" class="w-full h-48 md:h-64 object-cover rounded-2xl shadow-lg hover:scale-[1.02] transition-transform duration-500">
-                </div>
-            </div>
-
-            <div class="gs-reveal">
-                <h2 class="text-4xl font-bold mb-6 text-gray-900">About the Journey</h2>
-                <div class="w-16 h-1 bg-orange-600 mb-6"></div>
-                <p class="text-lg text-gray-600 leading-relaxed mb-6" x-html="profile.bio"></p>
-                <div class="grid grid-cols-3 gap-4 text-center mt-8">
-                    <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                        <div class="text-3xl font-bold text-gray-900" x-text="stats.countries"></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Countries</div>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                        <div class="text-3xl font-bold text-gray-900" x-text="stats.peaks"></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Peaks</div>
-                    </div>
-                    <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                        <div class="text-3xl font-bold text-gray-900" x-text="stats.elevation"></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Max Elev</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gear" class="py-12 md:py-24 px-4 md:px-6 bg-gray-900 text-white relative overflow-hidden" 
-             x-data="{ 
-                 currentFilter: 'Footwear', 
-                 limit: 12,
-                 get filteredItems() {
-                     return this.gear.filter(item => item.category === this.currentFilter);
-                 },
-                 get visibleItems() {
-                    return this.filteredItems.slice(0, this.limit);
-                 }
-             }">
-        
-        <div class="absolute top-0 right-0 text-gray-800 opacity-20 text-9xl font-bold -mr-12 -mt-12 select-none">GEAR</div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="mb-8 md:mb-12 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Gear Locker</h2>
-                <p class="text-gray-400 mb-6 text-sm md:text-base max-w-2xl mx-auto">The exact kit I'm using for the 2026 World Tour.</p>
-                
-                <div class="flex flex-wrap justify-center gap-2 mt-4">
-                    <template x-for="cat in ['Footwear', 'Clothing', 'Camping/Backpacking', 'Mountaineering', 'Hiking Accessories', 'Electronics']">
-                        <button 
-                            @click="currentFilter = cat; limit = 12"
-                            class="px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold border transition-all duration-300"
-                            :class="currentFilter === cat ? 'bg-orange-600 border-orange-600 text-white' : 'bg-transparent border-gray-600 text-gray-400 hover:border-white hover:text-white'"
-                            x-text="cat">
-                        </button>
-                    </template>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 content-start">
-                <template x-for="item in visibleItems" :key="item.name">
-                    <div x-transition:enter="transition ease-out duration-300"
-                         x-transition:enter-start="opacity-0 transform scale-90"
-                         x-transition:enter-end="opacity-100 transform scale-100"
-                         class="h-full">
-                        <a :href="item.link" target="_blank" class="group h-full flex flex-col bg-gray-800 rounded-lg md:rounded-xl overflow-hidden hover:bg-gray-700 transition-colors duration-300 border border-gray-700">
-                            <div class="h-32 md:h-48 overflow-hidden relative shrink-0 bg-gray-900">
-                                <img :src="item.image" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" :alt="item.name">
-                                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-2 md:p-3 pt-8">
-                                    <span class="text-[10px] md:text-xs font-bold text-orange-400 uppercase tracking-wider" x-text="item.category"></span>
-                                </div>
-                            </div>
-                            <div class="p-3 md:p-5 flex flex-col flex-grow">
-                                <h3 class="text-sm md:text-lg font-bold mb-1 leading-tight group-hover:text-orange-400 transition-colors" x-text="item.name"></h3>
-                                <p class="text-gray-500 text-xs md:text-sm line-clamp-2 md:line-clamp-3 mb-2" x-text="item.desc"></p>
-                            </div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-
-            <div x-show="visibleItems.length < filteredItems.length" class="text-center mt-8 md:mt-12">
-                <button 
-                    @click="limit += 12"
-                    class="bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 px-6 py-2 md:px-8 md:py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300">
-                    Load More Gear
-                </button>
-            </div>
-            
-            <div x-show="visibleItems.length === 0" class="text-center py-12 text-gray-500 italic">
-                No gear added to this category yet.
-            </div>
-
-        </div>
-    </section>
-
-    <section id="trips" class="py-24 px-6 max-w-6xl mx-auto" x-data="{ currentTripFilter: 'Upcoming' }">
-        <h2 class="text-4xl font-bold mb-8 text-center text-gray-900">Trips & Itineraries</h2>
-        
-        <div class="flex justify-center gap-4 mb-12">
-            <template x-for="status in ['Upcoming', 'Past']">
-                <button @click="currentTripFilter = status"
-                        class="px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 border"
-                        :class="currentTripFilter === status ? 'bg-orange-600 border-orange-600 text-white shadow-md' : 'bg-transparent border-gray-300 text-gray-500 hover:border-gray-400 hover:text-gray-700'"
-                        x-text="status">
-                </button>
-            </template>
+        <div class="screen" data-screen="1">
+          <div class="screen-topbar">
+            <span>Water Sources</span>
+            <span class="pill">Live notes</span>
+          </div>
+          <ul class="screen-list">
+            <li><span class="dot dot-amber"></span>Cameron Creek — reliable, mi 2.1</li>
+            <li><span class="dot dot-amber"></span>Basin tarn — seasonal, mi 4.6</li>
+            <li><span class="dot dot-rust"></span>Last source before pass, mi 6.0</li>
+          </ul>
+          <div class="screen-caption">Marked by hikers 6 days ago</div>
         </div>
 
-        <div class="space-y-12">
-            <template x-for="(trip, index) in trips.filter(t => t.status === currentTripFilter)" :key="trip.title">
-                <div x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 gs-reveal">
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <div class="md:w-1/3 shrink-0">
-                            <div class="relative h-64 md:h-full min-h-[250px] rounded-xl overflow-hidden bg-gray-200">
-                                <template x-if="trip.image">
-                                    <img :src="trip.image" class="absolute inset-0 w-full h-full object-cover" :alt="trip.title">
-                                </template>
-                                <template x-if="!trip.image">
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-100">
-                                        <svg class="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        <span class="text-xs uppercase tracking-widest font-bold">Image Coming Soon</span>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
-                        <div class="md:w-2/3 flex flex-col justify-center">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="trip.date + ' | ' + trip.location"></span>
-                            </div>
-                            <h3 class="text-2xl md:text-3xl font-bold mb-3 text-gray-900" x-text="trip.title"></h3>
-                            <p class="text-gray-600 mb-6 line-clamp-3" x-text="trip.snippet"></p>
-                            
-                            <div x-data="{ expanded: false }">
-                                <button @click="expanded = !expanded" class="text-orange-600 font-bold hover:text-orange-800 flex items-center gap-2">
-                                    <span x-text="expanded ? 'Close Details' : 'View Itinerary'"></span>
-                                    <svg :class="{'rotate-180': expanded}" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                                
-                                <div x-show="expanded" x-collapse class="mt-4 pt-4 border-t border-gray-200">
-                                    <h4 class="font-bold text-gray-900 mb-2" x-text="trip.status === 'Past' ? 'What I Did:' : 'Trip Objectives:'"></h4>
-                                    <ul class="list-disc list-inside text-gray-600 space-y-1 mb-4">
-                                        <template x-for="goal in trip.goals">
-                                            <li x-text="goal"></li>
-                                        </template>
-                                    </ul>
-                                    <h4 class="font-bold text-gray-900 mb-1" x-text="trip.status === 'Past' ? 'Trip Overview:' : 'The Plan:'"></h4>
-                                    <p class="text-gray-600 italic" x-text="trip.plan"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </template>
-            
-            <div x-show="trips.filter(t => t.status === currentTripFilter).length === 0" class="text-center py-12 text-gray-500 italic">
-                No trips scheduled in this category yet.
-            </div>
+        <div class="screen" data-screen="2">
+          <div class="screen-topbar">
+            <span>Pack List</span>
+            <span class="pill">32.4 lbs</span>
+          </div>
+          <ul class="screen-list checklist">
+            <li><span class="check">✓</span>Bear canister</li>
+            <li><span class="check">✓</span>Water filter</li>
+            <li><span class="check">✓</span>Permit printout</li>
+            <li><span class="check empty">–</span>Extra fuel canister</li>
+          </ul>
+          <div class="screen-caption">Synced across your party</div>
         </div>
-    </section>
 
-    <section id="contact" class="py-24 px-6 bg-gray-900 text-center border-t border-gray-800">
-        <div class="max-w-2xl mx-auto">
-            <div class="w-20 h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center mb-6 border-2 border-orange-600">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            </div>
-            
-            <h2 class="text-4xl font-bold text-white mb-2">Let's Work Together</h2>
-            <p class="text-gray-400 mb-10">Brand partnerships, collaborations, and campaign inquiries.</p>
-            
-            <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 shadow-xl">
-                <p class="text-gray-300 mb-6 text-lg">
-                    The best way to reach me is via email. Click the button below to open your mail client, or copy my address manually.
-                </p>
+      </div>
+      <div class="phone-home"></div>
+    </div>
 
-                <a href="mailto:partnerships@peaktyler.com?subject=Adventure%20Inquiry" class="inline-flex items-center justify-center w-full md:w-auto bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:-translate-y-1 shadow-lg gap-3 mb-6">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Email Me Directly
-                </a>
-                
-                <div class="mt-4 pt-4 border-t border-gray-700">
-                    <p class="text-xs text-gray-500 uppercase tracking-wider font-bold mb-2">Or copy address:</p>
-                    <code class="bg-gray-900 text-orange-500 px-4 py-2 rounded text-lg select-all">partnerships@peaktyler.com</code>
-                </div>
-            </div>
+    <div class="screen-dots">
+      <button class="screen-dot active" data-goto="0" aria-label="Trail map screen"></button>
+      <button class="screen-dot" data-goto="1" aria-label="Water sources screen"></button>
+      <button class="screen-dot" data-goto="2" aria-label="Pack list screen"></button>
+    </div>
+  </section>
+
+  <!-- CENTER: ITINERARY INFO -->
+  <section class="info-col">
+    <div class="eyebrow">
+      <svg class="eyebrow-chart" viewBox="0 0 120 24" preserveAspectRatio="none">
+        <polyline points="0,20 15,14 30,17 45,6 60,10 75,2 90,8 105,4 120,9"/>
+      </svg>
+      <span>5-DAY ROUTE · OLYMPIC PENINSULA</span>
+    </div>
+
+    <h1 class="headline">The Olympic Peninsula Traverse</h1>
+    <p class="subhead">Hurricane Ridge to Deer Park, the long way. Every mile of elevation, every water source, and every permit rule — mapped out before you find out the hard way.</p>
+
+    <ol class="itinerary">
+      <li class="leg">
+        <div class="leg-day">Day 1</div>
+        <div class="leg-body">
+          <div class="leg-route">Hurricane Ridge → Grand Valley</div>
+          <div class="leg-meta"><span>7.2 mi</span><span>+2,100 ft</span><span>Camp at Grand Lake</span></div>
         </div>
-    </section>
+      </li>
+      <li class="leg">
+        <div class="leg-day">Day 2</div>
+        <div class="leg-body">
+          <div class="leg-route">Grand Valley → Cameron Basin</div>
+          <div class="leg-meta"><span>6.8 mi</span><span>+1,400 ft</span><span>Water at mi 2.1</span></div>
+        </div>
+      </li>
+      <li class="leg">
+        <div class="leg-day">Day 3</div>
+        <div class="leg-body">
+          <div class="leg-route">Cameron Basin → Sunnybrook Meadows</div>
+          <div class="leg-meta"><span>5.1 mi</span><span>+900 ft</span><span>Best sunset ridge</span></div>
+        </div>
+      </li>
+      <li class="leg">
+        <div class="leg-day">Day 4</div>
+        <div class="leg-body">
+          <div class="leg-route">Sunnybrook → Deer Park</div>
+          <div class="leg-meta"><span>8.4 mi</span><span>+1,800 ft</span><span>Exposed ridgeline</span></div>
+        </div>
+      </li>
+      <li class="leg">
+        <div class="leg-day">Day 5</div>
+        <div class="leg-body">
+          <div class="leg-route">Deer Park → Trailhead</div>
+          <div class="leg-meta"><span>4.6 mi</span><span>−2,200 ft</span><span>Out by early afternoon</span></div>
+        </div>
+      </li>
+    </ol>
 
-    <footer class="bg-gray-950 py-12 text-center text-gray-500 text-sm">
-        <p>© <span x-text="new Date().getFullYear()"></span> Peak Tyler. All rights reserved.</p>
-    </footer>
+    <div class="feature-chips">
+      <span class="chip">Offline trail maps</span>
+      <span class="chip">Water source markers</span>
+      <span class="chip">Permit checklist</span>
+      <span class="chip">Campsite photos</span>
+      <span class="chip">Shared pack list</span>
+    </div>
+  </section>
 
-    <script>
-        function getIcon(platform) {
-            const icons = {
-                'Instagram': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.44c2.136 0 2.412.01 3.264.048.789.035 1.245.15 1.536.263.384.15.66.328.945.615.288.284.466.56.615.944.113.291.228.747.263 1.536.039.852.048 1.128.048 3.264s-.01 2.412-.048 3.264c-.035.789-.15 1.245-.263 1.536a2.46 2.46 0 0 1-.615.945c-.284.288-.56.466-.944.615-.291.113-.747.228-1.536.263-.852.039-1.128.048-3.264.048s-2.412-.01-3.264-.048c-.789-.035-1.245-.15-1.536-.263a2.46 2.46 0 0 1-.945-.615 2.46 2.46 0 0 1-.615-.944c-.113-.291-.228-.747-.263-1.536C1.45 10.412 1.44 10.136 1.44 8s.01-2.412.048-3.264c.035-.789.15-1.245.263-1.536a2.46 2.46 0 0 1 .615-.945c.284-.288.56-.466.944-.615.291-.113.747-.228 1.536-.263.852-.039 1.128-.048 3.264-.048zM8 3.89A4.11 4.11 0 1 0 8 12.11 4.11 4.11 0 0 0 8 3.89zm0 1.44a2.67 2.67 0 1 1 0 5.34 2.67 2.67 0 0 1 0-5.34zm5.232-3.06a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92z"/></svg>',
-                'YouTube': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
-                'TikTok': '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>'
-            };
-            return icons[platform.split(' ')[0]] || icons['Instagram'];
-        }
+  <!-- RIGHT: CHECKOUT -->
+  <aside class="checkout-col" id="checkout">
+    <div class="checkout-card">
+      <div class="checkout-kicker">One-time purchase</div>
+      <div class="checkout-price"><span class="price-currency">$</span>20</div>
+      <div class="checkout-sub">Lifetime access · free updates to this route</div>
 
-        function siteData() {
-            return {
-                profile: {
-                    name: "Peak Tyler",
-                    tagline: "", 
-                    bio: "Chasing peaks and views worldwide. Colorado-based, I climb, travel, and document wherever I end up.<br/><br/>In 2026, I’m taking this global with the World Tour Peaks Series — a year-long project focused on climbing one major peak each month around the world. This is where you can follow along: the trips I’m on, the routes I take, and the gear I rely on along the way.<br/><br/>(This page is currently in progress)",
-                    heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-                    avatar: "https://i.postimg.cc/PrDYLV0s/IMG-0561.jpg",
-                    gallery: [
-                        "https://i.postimg.cc/mDW0snxR/Image-(3).jpg",
-                        "https://i.postimg.cc/4dRrg0Cs/Image_(6).jpg",
-                        "https://i.postimg.cc/nzf6JW8n/Image_(4).jpg"
-                    ]
-                },
-                stats: {
-                    countries: 17,
-                    peaks: 21,
-                    elevation: "14.4k"
-                },
-                gear: [
-                    // --- CLOTHING ---
-                    {
-                        name: "Arc'teryx Atom Hoody",
-                        category: "Clothing",
-                        desc: "The single most versatile insulation layer I own.",
-                        image: "https://www.rei.com/media/db945c19-6717-497d-9fc5-5b9027716cac?size=2000", 
-                        link: "https://app.rockporch.com/prdlink/sS1ghXH5gB"
-                    },
-                    {
-                        name: "Arc'teryx Beta Shell",
-                        category: "Clothing",
-                        desc: "Bombproof protection against high-alpine storms.",
-                        image: "https://www.rei.com/media/7c517940-30dc-4c56-b41f-c4286533b5c7?size=2000", 
-                        link: "https://app.rockporch.com/prdlink/np1SSRVAQC"
-                    },
-                    {
-                        name: "Nike ACG Summit Pants",
-                        category: "Clothing",
-                        desc: "Rugged, stretchy, and perfect for movement.",
-                        image: "https://reynoldsandsons.com/cdn/shop/files/IMG-2557.jpg?v=1708604906", 
-                        link: "https://app.rockporch.com/mlink/KWexqroVW6"
-                    },
-                    // --- FOOTWEAR ---
-                    {
-                        name: "Salomon Quest 4 GTX",
-                        category: "Footwear",
-                        desc: "Vibram sole grip is unmatched on wet granite.",
-                        image: "https://i.postimg.cc/X7QK61Gf/Screenshot_2025_12_19_220151.png",
-                        link: "https://app.rockporch.com/prdlink/oTPrWuj7ri"
-                    },
-                    {
-                        name: "La Sportiva Nepal Cube",
-                        category: "Footwear",
-                        desc: "The gold standard for technical mountaineering boots.",
-                        image: "https://i.postimg.cc/nV399fqW/Screenshot-2026-01-16-184804.png", 
-                        link: "https://app.rockporch.com/prdlink/OmcskJ76I6"
-                    },
+      <ul class="checkout-includes">
+        <li>Full 5-day interactive itinerary</li>
+        <li>Offline map with elevation data</li>
+        <li>Water source &amp; campsite notes</li>
+        <li>Permit &amp; regulation checklist</li>
+        <li>Works on phone, tablet, and desktop</li>
+      </ul>
 
-                    // --- Camping/Backpacking ---
-                    {
-                        name: "Osprey Atmos AG 65",
-                        category: "Camping/Backpacking",
-                        desc: "The anti-gravity suspension system makes 40lbs feel like 20lbs.",
-                        image: "https://i.postimg.cc/SNDLb12f/Screenshot_2025_12_19_215421.png",
-                        link: "https://app.rockporch.com/prdlink/6f8TUvelvX"
-                    },
-                    {
-                        name: "Jones HIGHER Snow Pack",
-                        category: "Camping/Backpacking",
-                        desc: "Specific for winter backcountry missions.",
-                        image: "https://i.postimg.cc/MTv2sBrc/Screenshot-2026-01-16-183323.png",
-                        link: "https://amzn.to/4jGU506"
-                    },
-                    {
-                        name: "MSR Elixir 1",
-                        category: "Camping/Backpacking",
-                        desc: "Lightweight, freestanding, and handles high winds beautifully.",
-                        image: "https://i.postimg.cc/GmmWbfMw/Screenshot-2025-12-19-221822.png",
-                        link: "https://app.rockporch.com/prdlink/QEeMbkVQwZ"
-                    },
-                    {
-                        name: "Sleeping Bag 0°F",
-                        category: "Camping/Backpacking",
-                        desc: "Synthetic fill for reliable warmth even when damp.",
-                        image: "https://i.postimg.cc/vmZpB9yj/Screenshot-2026-01-16-183559.png",
-                        link: "https://amzn.to/4pJGd6S"
-                    },
-                    {
-                        name: "Insulated Sleeping Pad",
-                        category: "Camping/Backpacking",
-                        desc: "High R-value is critical for sleeping on snow.",
-                        image: "https://i.postimg.cc/Ghj7y2Xm/Screenshot-2026-01-16-184201.png",
-                        link: "https://amzn.to/49AbIeZ"
-                    },
+      <button class="buy-button" id="buyButton">Get the field guide</button>
+      <div class="checkout-trust">Instant access after checkout · no account needed</div>
 
-                    // --- MOUNTAINEERING ---
-                    {
-                        name: "Black Diamond Raven Axe",
-                        category: "Mountaineering",
-                        desc: "Classic stainless steel head. Essential for self-arrest.",
-                        image: "https://i.postimg.cc/mknrXRwx/Screenshot-2026-01-16-185018.png", 
-                        link: "https://app.rockporch.com/mlink/u22B3cF4KU"
-                    },
-                    {
-                        name: "Micro Spikes",
-                        category: "Mountaineering",
-                        desc: "Required traction for steep ice & snow.",
-                        image: "https://i.postimg.cc/fT37wR1C/Screenshot-2026-01-16-191605.png", 
-                        link: "https://amzn.to/4pIdNu0"
-                    },
-                    {
-                        name: "Black Diamond Climbing Helmet",
-                        category: "Mountaineering",
-                        desc: "Lightweight protection from rockfall.",
-                        image: "https://i.postimg.cc/BbjS1kGw/Screenshot-2026-01-16-185220.png", 
-                        link: "https://app.rockporch.com/mlink/Uyxvgl7jEh"
-                    },
-                    {
-                        name: "Snowshoes & Trekking Poles",
-                        category: "Mountaineering",
-                        desc: "Winter essentials. They get the job done for cheap.",
-                        image: "https://i.postimg.cc/1zdY3jJn/Screenshot-2026-01-16-183941.png",
-                        link: "https://amzn.to/3Lyik4e"
-                    },
+      <div class="checkout-divider"></div>
 
-                    // --- Hiking Accessories ---
-                    {
-                        name: "LED Headlamp",
-                        category: "Hiking Accessories",
-                        desc: "Reliable, bright, and affordable. My primary light source.",
-                        image: "https://i.postimg.cc/yx3KNRm6/Screenshot-2026-01-16-185400.png", 
-                        link: "https://amzn.to/49tyeGk"
-                    },
-                    {
-                        name: "Arc'teryx Beanie",
-                        category: "Hiking Accessories",
-                        desc: "Merino wool warmth. I pack two of these.",
-                        image: "https://images.stockx.com/images/Arcteryx-Grotto-Toque-Black-Void.jpg?fit=fill&bg=FFFFFF&w=480&h=320&q=60&dpr=1&trim=color&updated_at=1755186250", 
-                        link: "https://app.rockporch.com/prdlink/3tdbBfRu5z"
-                    },
-                    {
-                        name: "Winter Gloves (Fingers)",
-                        category: "Hiking Accessories",
-                        desc: "Dexterity for handling ropes and zippers.",
-                        image: "https://m.media-amazon.com/images/I/71pRPzW6WEL._AC_SX679_.jpg", 
-                        link: "https://amzn.to/49FqXC1"
-                    },
-                    {
-                        name: "Black Diamond Mercury Mittens",
-                        category: "Hiking Accessories",
-                        desc: "For the coldest summit days when fingers freeze.",
-                        image: "https://i.postimg.cc/zXSzHCmz/Screenshot-2026-01-16-190147.png", 
-                        link: "https://app.rockporch.com/mlink/HEw8cw4djI"
-                    },
-                    {
-                        name: "Merino Wool Socks",
-                        category: "Hiking Accessories",
-                        desc: "The unsung heroes of every trip.",
-                        image: "https://m.media-amazon.com/images/I/91ESHoUtkaL._AC_SX679_.jpg", 
-                        link: "https://amzn.to/4pHP48Y"
-                    },
-                    {
-                        name: "Oakley Flak 2.0 xl",
-                        category: "Hiking Accessories",
-                        desc: "Slip-rresistant sport sunglasses.",
-                        image: "https://i.postimg.cc/HL38wqf5/Screenshot-2026-01-16-192030.png", 
-                        link: "https://app.rockporch.com/prdlink/LoeTnMGcQb"
-                    },
+      <div class="checkout-guarantee">
+        <span class="guarantee-mark">✓</span>
+        <span>If a trail's closed or rerouted, we update the guide — you don't buy it twice.</span>
+      </div>
+    </div>
+  </aside>
 
-                    // --- ELECTRONICS ---
-                    {
-                        name: "DJI Osmo Pocket 3",
-                        category: "Electronics",
-                        desc: "4K/120fps, 3-axis stabilization. The ultimate pocket vlogging tool.",
-                        image: "https://i.postimg.cc/GhqPng8j/Screenshot_2025_12_19_215518.png",
-                        link: "https://amzn.to/4oYhxXL"
-                    },
-                    {
-                        name: "DJI Action Camera",
-                        category: "Electronics",
-                        desc: "Rugged and waterproof for the harshest conditions.",
-                        image: "https://i.postimg.cc/GpBnKYfM/Screenshot-2026-01-16-190552.png", 
-                        link: "https://amzn.to/3ZfCm6y"
-                    },
-                    {
-                        name: "Travel Tripod",
-                        category: "Electronics",
-                        desc: "Carbon fiber, lightweight stability for long exposures.",
-                        image: "https://i.postimg.cc/BQMWGM9B/Screenshot-2026-01-16-190752.png", 
-                        link: "https://amzn.to/4qXS8Pu"
-                    }
-                ],
-                // TRIPS DATA
-                trips: [
-                    {
-                        title: "Hawaii: Mauna Kea & Islands",
-                        date: "January 2026",
-                        location: "Hawaii, USA",
-                        duration: "10 Days",
-                        status: "Past",
-                        snippet: "Kickstarted the 12 World Tour Peaks series (1/12). A mix of high-altitude summit, exposed ridge hikes, and tropical terrain across three islands.",
-                        image: "https://www.aslo.org/wp-content/uploads/kauai.jpg",
-                        goals: ["Big Island: Summited Mauna Kea (13,803’)", "O‘ahu: Three Peaks Trail + Pali Notches", "Kaua‘i: Kalalau Trail + canyon detour", "Pu‘u O Kila Lookout"],
-                        plan: "The main objective was Mauna Kea—technically the tallest mountain on earth from base to peak. After that, I island hopped to Oʻahu and Kauaʻi for ridge hikes and canyon trails."
-                    },
-                    {
-                        title: "Mount Sneffels Winter Ascent",
-                        date: "February 2026",
-                        location: "Colorado, USA",
-                        duration: "1 Day",
-                        status: "Past",
-                        snippet: "World Tour Peak 2/12. A 13-hour winter ascent with added distance and technical conditions.",
-                        image: "https://i.etsystatic.com/40245420/r/il/c18542/4620965180/il_fullxfull.4620965180_fije.jpg",
-                        goals: ["Summited Mount Sneffels (14,158’)", "Alpine start (~3:30 AM)", "+4 miles each way due to road closure", "Crampons + ice axe required for final ascent"],
-                        plan: "The road closure added serious mileage, turning this into a massive 13-hour push. The final couloir required crampons and an ice axe to safely navigate the winter conditions to the summit."
-                    },
-                    {
-                        title: "Acatenango & Fuego",
-                        date: "March 2026",
-                        location: "Guatemala",
-                        duration: "2 Days",
-                        status: "Past",
-                        snippet: "World Tour Peak 3/12. Overnight volcano experience with constant eruptions from Volcán Fuego.",
-                        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Volc%C3%A1n_de_Fuego_-_Guatemala.jpg/1280px-Volc%C3%A1n_de_Fuego_-_Guatemala.jpg",
-                        goals: ["Guided climb with Soy Tours", "Hike to Acatenango base camp", "Sunset hike toward Fuego to watch eruptions", "Summit push for sunrise on Acatenango", "Overnight at base camp, descend next morning"],
-                        plan: "Hiked up to base camp on Acatenango, then pushed out toward Fuego at sunset to watch the active eruptions. Woke up in the dark the next morning for the final summit push to catch the sunrise."
-                    },
-                    {
-                        title: "Mount Hood Summit",
-                        date: "April 2026",
-                        location: "Oregon, USA",
-                        duration: "2 Days",
-                        status: "Upcoming",
-                        snippet: "Continuing the 12 Peaks project during my 40-day truck road trip. Aiming for a South Side summit and getting some cinematic, moody shots.",
-                        image: "https://media.kgw.com/assets/KGW/images/606856312/606856312_1920x1080.jpg",
-                        goals: ["South Side summit via Pearly Gates", "Sunrise summit push", "Capture cinematic alpine footage"],
-                        plan: "Targeting a clean weather window for a standard south side ascent. Early alpine start to reach the summit at sunrise, moving through the Pearly Gates depending on conditions."
-                    },
-                    {
-                        title: "40-Day Pacific Northwest Road Trip",
-                        date: "April - May 2026",
-                        location: "Pacific Northwest, USA",
-                        duration: "40 Days",
-                        status: "Upcoming",
-                        snippet: "Living out of my truck for 40 days, chasing the most cinematic landscapes down the coast and through the national parks.",
-                        image: "https://www.traveloffpath.com/wp-content/uploads/2021/04/Top-10-Waterfalls-in-the-pacific-North-West.jpg",
-                        goals: ["Oregon Coast + waterfall corridor", "Redwoods exploration", "California national parks"],
-                        plan: "Road tripping the Pacific Northwest and Northern California — Oregon coast, Panther Creek Falls and the Gorge, Redwoods, then down through Castle Crags, Yosemite, Kings Canyon, and Sequoia. Focus on hitting dramatic landscapes and building out the series."
-                    },
-                    {
-                        title: "Mount Rainier Summit",
-                        date: "May 2026",
-                        location: "Washington, USA",
-                        duration: "2 Days",
-                        status: "Upcoming",
-                        snippet: "First true glacier climb of the series. Heavy crevasse navigation and rope team travel.",
-                        image: "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/Rainier89_mount_rainier_puyallup_daffodil_field_04-08-89.jpg?itok=mwl6U_hJ",
-                        goals: ["Glaciated summit (14,410’)", "Crevasse navigation + rope team travel", "First true glacier climb of the series"],
-                        plan: "Climbing via the standard guided route (Disappointment Cleaver). Two-day push with a glacier camp, rope team travel, and a summit attempt early morning depending on conditions."
-                    }
-                ],
-                // SOCIALS
-                socials: [
-                    { platform: "Instagram", url: "https://www.instagram.com/peaktylerr" },
-                    { platform: "TikTok", url: "https://www.tiktok.com/@peaktyler" },
-                    { platform: "YouTube Channel", url: "https://www.youtube.com/@peaktyler" }
-                ]
-            }
-        }
+</main>
 
-        gsap.registerPlugin(ScrollTrigger);
+<footer class="site-footer">
+  <span>© 2026 Mega American. Built for people who'd rather be outside.</span>
+</footer>
 
-        const revealElements = document.querySelectorAll(".gs-reveal");
-        revealElements.forEach(element => {
-            gsap.fromTo(element, 
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 85%",
-                    }
-                }
-            );
-        });
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
