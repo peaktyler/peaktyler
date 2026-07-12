@@ -6,10 +6,16 @@
     <title>Field Guide | Peak Tyler</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
+        body { font-family: 'Outfit', sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        .topo-bg { background-color: #f3f4f6; }
+    </style>
 </head>
 <body class="topo-bg" x-data="{ currentView: 'PNW' }">
 
-    <!-- NAV -->
+    <!-- NAVIGATION -->
     <nav class="fixed top-0 w-full z-50 bg-gray-900/90 backdrop-blur-md py-4">
         <div class="flex justify-center gap-6">
             <button @click="currentView = 'PNW'" :class="currentView === 'PNW' ? 'text-orange-500' : 'text-gray-300'" class="font-bold uppercase tracking-widest text-sm">PNW</button>
@@ -22,24 +28,28 @@
     <!-- CONTENT AREAS -->
     <main class="pt-28 pb-16 px-4 max-w-3xl mx-auto">
         
+        <!-- PNW SECTION -->
         <div x-show="currentView === 'PNW'">
-            <h1 class="text-4xl font-bold">PNW Guide</h1>
-            <p>Welcome to the PNW section. Edit this text once here, and it updates everywhere.</p>
+            <h1 class="text-4xl font-bold heading-font">PNW Field Guide</h1>
+            <p class="mt-4">This is your PNW guide content. You can paste all your original itinerary details here.</p>
         </div>
 
+        <!-- ICELAND SECTION -->
         <div x-show="currentView === 'ICELAND'">
-            <h1 class="text-4xl font-bold">Iceland Guide</h1>
-            <p>Welcome to the Iceland section.</p>
+            <h1 class="text-4xl font-bold heading-font">Iceland Field Guide</h1>
+            <p class="mt-4">This is your Iceland guide content.</p>
         </div>
 
+        <!-- SWITZERLAND SECTION -->
         <div x-show="currentView === 'SWITZERLAND'">
-            <h1 class="text-4xl font-bold">Switzerland Guide</h1>
-            <p>Welcome to the Switzerland section.</p>
+            <h1 class="text-4xl font-bold heading-font">Switzerland Field Guide</h1>
+            <p class="mt-4">This is your Switzerland guide content.</p>
         </div>
 
+        <!-- DOLOMITES SECTION -->
         <div x-show="currentView === 'DOLOMITES'">
-            <h1 class="text-4xl font-bold">Dolomites Guide</h1>
-            <p>Welcome to the Dolomites section.</p>
+            <h1 class="text-4xl font-bold heading-font">Dolomites Field Guide</h1>
+            <p class="mt-4">This is your Dolomites guide content.</p>
         </div>
 
     </main>
