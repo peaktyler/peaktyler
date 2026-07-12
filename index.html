@@ -6,10 +6,9 @@
     <title>Field Guides | Peak Tyler</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
-        body { font-family: 'Outfit', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-        .heading-font { font-family: 'Space Grotesk', sans-serif; }
-        .text-outline { -webkit-text-stroke: 1px black; }
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap');
+        body { font-family: 'Manrope', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        .text-outline { -webkit-text-stroke: 1.5px black; }
         .topo-bg { 
             background-color: #f3f4f6; 
             background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topoPattern' patternUnits='userSpaceOnUse' width='500' height='500' viewBox='0 0 500 500'%3E%3Cpath d='M0 250 Q 125 100, 250 250 Q 375 400, 500 250 M0 270 Q 125 120, 250 270 Q 375 420, 500 270 M0 230 Q 125 80, 250 230 Q 375 380, 500 230 M0 300 Q 125 150, 250 300 Q 375 450, 500 300 M0 200 Q 125 50, 250 200 Q 375 350, 500 200 M0 350 Q 125 200, 250 350 Q 375 500, 500 350 M0 150 Q 125 0, 250 150 Q 375 300, 500 150' stroke='%239ca3af' stroke-opacity='0.3' fill='none' stroke-width='1.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23topoPattern)'/%3E%3C/svg%3E"); 
@@ -18,39 +17,47 @@
 </head>
 <body class="topo-bg p-2 md:p-4">
 
-    <header class="text-center pb-2">
-        <h1 class="text-gray-900 text-2xl md:text-4xl font-bold heading-font tracking-tight">PEAK TYLER</h1>
+    <header class="text-center pb-4">
+        <h1 class="text-gray-900 text-3xl md:text-5xl font-extrabold tracking-tight">PEAK TYLER</h1>
     </header>
 
-    <!-- Grid: Uses calc to fill the screen minus the header -->
-    <div class="h-[calc(100vh-80px)] grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 w-full">
+    <!-- Grid filling the screen -->
+    <div class="h-[calc(100vh-100px)] grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 w-full">
 
         <!-- PNW -->
-        <a href="PNW.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group h-full">
+        <a href="PNW.html" class="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
             <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" class="w-full h-full object-cover">
-            <div class="absolute top-4 w-full text-center font-bold heading-font text-xl md:text-3xl text-white text-outline tracking-wider">PNW</div>
-            <div class="absolute bottom-4 w-full flex justify-center"><span class="bg-white/90 text-black px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase">View Guide</span></div>
+            <div class="absolute top-6 w-full text-center font-extrabold text-3xl md:text-5xl text-white text-outline tracking-wider">PNW</div>
+            <div class="absolute bottom-6 w-full flex justify-center">
+                <span class="bg-white/90 text-black px-6 py-2 rounded-full text-sm md:text-base font-extrabold tracking-widest uppercase shadow-lg">View Guide</span>
+            </div>
         </a>
 
         <!-- Iceland -->
-        <a href="ICELAND.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group h-full">
+        <a href="ICELAND.html" class="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
             <img src="https://images.unsplash.com/photo-1520769945061-0a448c463865" class="w-full h-full object-cover">
-            <div class="absolute top-4 w-full text-center font-bold heading-font text-xl md:text-3xl text-white text-outline tracking-wider">ICELAND</div>
-            <div class="absolute bottom-4 w-full flex justify-center"><span class="bg-white/90 text-black px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase">View Guide</span></div>
+            <div class="absolute top-6 w-full text-center font-extrabold text-3xl md:text-5xl text-white text-outline tracking-wider">ICELAND</div>
+            <div class="absolute bottom-6 w-full flex justify-center">
+                <span class="bg-white/90 text-black px-6 py-2 rounded-full text-sm md:text-base font-extrabold tracking-widest uppercase shadow-lg">View Guide</span>
+            </div>
         </a>
 
         <!-- Switzerland -->
-        <a href="SWITZERLAND.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group h-full">
+        <a href="SWITZERLAND.html" class="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
             <img src="https://images.unsplash.com/photo-1502784444187-359ac186c5bb" class="w-full h-full object-cover">
-            <div class="absolute top-4 w-full text-center font-bold heading-font text-xl md:text-3xl text-white text-outline tracking-wider">SWITZERLAND</div>
-            <div class="absolute bottom-4 w-full flex justify-center"><span class="bg-white/90 text-black px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase">View Guide</span></div>
+            <div class="absolute top-6 w-full text-center font-extrabold text-3xl md:text-5xl text-white text-outline tracking-wider">SWITZERLAND</div>
+            <div class="absolute bottom-6 w-full flex justify-center">
+                <span class="bg-white/90 text-black px-6 py-2 rounded-full text-sm md:text-base font-extrabold tracking-widest uppercase shadow-lg">View Guide</span>
+            </div>
         </a>
 
         <!-- Dolomites -->
-        <a href="DOLOMITES.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group h-full">
+        <a href="DOLOMITES.html" class="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
             <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" class="w-full h-full object-cover">
-            <div class="absolute top-4 w-full text-center font-bold heading-font text-xl md:text-3xl text-white text-outline tracking-wider">DOLOMITES</div>
-            <div class="absolute bottom-4 w-full flex justify-center"><span class="bg-white/90 text-black px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase">View Guide</span></div>
+            <div class="absolute top-6 w-full text-center font-extrabold text-3xl md:text-5xl text-white text-outline tracking-wider">DOLOMITES</div>
+            <div class="absolute bottom-6 w-full flex justify-center">
+                <span class="bg-white/90 text-black px-6 py-2 rounded-full text-sm md:text-base font-extrabold tracking-widest uppercase shadow-lg">View Guide</span>
+            </div>
         </a>
 
     </div>
