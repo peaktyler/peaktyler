@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
-        body { font-family: 'Outfit', sans-serif; height: 100vh; display: flex; flex-direction: column; }
+        body { font-family: 'Outfit', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         .heading-font { font-family: 'Space Grotesk', sans-serif; }
         .topo-bg { 
             background-color: #f3f4f6; 
@@ -22,34 +22,36 @@
         <h1 class="text-gray-900 text-2xl md:text-4xl font-bold heading-font tracking-tight">PEAK TYLER</h1>
     </header>
 
-    <!-- 2x2 Grid that fills the rest of the screen -->
-    <div class="flex-grow grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 w-full h-full">
+    <!-- 2x2 Grid -->
+    <div class="flex-grow grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 w-full">
 
         <!-- PNW -->
-        <a href="PNW.html" class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col relative group">
-            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" class="w-full h-full object-cover">
-            <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2 text-white font-bold heading-font text-xs md:text-sm">PNW</div>
+        <a href="PNW.html" class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-2 hover:shadow-md transition-all">
+            <div class="text-center font-bold heading-font text-lg md:text-2xl py-1 md:py-2 text-gray-900">PNW</div>
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" class="flex-grow object-cover rounded-lg">
+            <div class="text-center font-bold text-xs md:text-sm py-1 md:py-2 text-gray-500 tracking-wider">VIEW GUIDE</div>
         </a>
 
         <!-- Iceland -->
-        <a href="ICELAND.html" class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col relative group">
-            <img src="https://images.unsplash.com/photo-1520769945061-0a448c463865" class="w-full h-full object-cover">
-            <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2 text-white font-bold heading-font text-xs md:text-sm">ICELAND</div>
+        <a href="ICELAND.html" class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-2 hover:shadow-md transition-all">
+            <div class="text-center font-bold heading-font text-lg md:text-2xl py-1 md:py-2 text-gray-900">ICELAND</div>
+            <img src="https://images.unsplash.com/photo-1520769945061-0a448c463865" class="flex-grow object-cover rounded-lg">
+            <div class="text-center font-bold text-xs md:text-sm py-1 md:py-2 text-gray-500 tracking-wider">VIEW GUIDE</div>
         </a>
 
         <!-- Switzerland -->
-        <a href="SWITZERLAND.html" class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col relative group">
-            <img src="https://images.unsplash.com/photo-1527838832700-5059252419fa" class="w-full h-full object-cover">
-            <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2 text-white font-bold heading-font text-xs md:text-sm">SWITZERLAND</div>
+        <a href="SWITZERLAND.html" class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-2 hover:shadow-md transition-all">
+            <div class="text-center font-bold heading-font text-lg md:text-2xl py-1 md:py-2 text-gray-900">SWITZERLAND</div>
+            <img src="https://images.unsplash.com/photo-1502784444187-359ac186c5bb" class="flex-grow object-cover rounded-lg">
+            <div class="text-center font-bold text-xs md:text-sm py-1 md:py-2 text-gray-500 tracking-wider">VIEW GUIDE</div>
         </a>
 
         <!-- Dolomites -->
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col relative group">
-            <a href="DOLOMITES.html" class="w-full h-full">
-                <img src="https://images.unsplash.com/photo-1516675335469-b570222161f3" class="w-full h-full object-cover">
-                <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2 text-white font-bold heading-font text-xs md:text-sm">DOLOMITES</div>
-            </a>
-        </div>
+        <a href="DOLOMITES.html" class="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-2 hover:shadow-md transition-all">
+            <div class="text-center font-bold heading-font text-lg md:text-2xl py-1 md:py-2 text-gray-900">DOLOMITES</div>
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" class="flex-grow object-cover rounded-lg">
+            <div class="text-center font-bold text-xs md:text-sm py-1 md:py-2 text-gray-500 tracking-wider">VIEW GUIDE</div>
+        </a>
 
     </div>
 
