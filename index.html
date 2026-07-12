@@ -41,7 +41,6 @@
 </head>
 <body class="text-gray-800 topo-bg overflow-x-hidden" x-data="guideData()">
 
-    <!-- ============ NAV (same as main site) ============ -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-300"
          x-data="{ mobileOpen: false, scrolled: false }"
          @scroll.window="scrolled = (window.pageYOffset > 50)"
@@ -56,9 +55,9 @@
             </a>
 
             <div class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Home</a>
-                <a href="index.html#gear" class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Gear</a>
-                <a href="index.html#trips" class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Trips</a>
+                <a href="pnw.html" class="text-sm font-bold uppercase tracking-widest text-orange-500 hover:text-orange-400 transition-colors">PNW</a>
+                <a href="iceland.html" class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Iceland</a>
+                <a href="switzerland.html" class="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Switzerland</a>
                 <a href="#buy" class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold uppercase tracking-widest px-5 py-2 rounded-full transition-all transform hover:-translate-y-0.5">
                     Get the Guide
                 </a>
@@ -75,22 +74,19 @@
              x-transition:enter-end="opacity-100 translate-y-0"
              @click.away="mobileOpen = false"
              class="md:hidden absolute top-full left-0 w-full bg-gray-900 border-t border-gray-800 p-6 flex flex-col gap-4 shadow-xl">
-            <a href="index.html" @click="mobileOpen = false" class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2">Home</a>
-            <a href="index.html#gear" @click="mobileOpen = false" class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2">Gear</a>
-            <a href="index.html#trips" @click="mobileOpen = false" class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2">Trips</a>
+            <a href="pnw.html" @click="mobileOpen = false" class="text-lg font-bold text-orange-500 border-b border-gray-800 pb-2">PNW</a>
+            <a href="iceland.html" @click="mobileOpen = false" class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2">Iceland</a>
+            <a href="switzerland.html" @click="mobileOpen = false" class="text-lg font-bold text-white hover:text-orange-500 border-b border-gray-800 pb-2">Switzerland</a>
             <a href="#buy" @click="mobileOpen = false" class="text-lg font-bold text-orange-500">Get the Guide</a>
         </div>
     </nav>
 
-    <!-- ============ MAIN 3-COLUMN LAYOUT ============ -->
     <main class="pt-28 pb-16 px-4 md:px-6 max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-[380px_1fr_340px] gap-6 lg:gap-8 items-start">
 
-            <!-- ==== LEFT: MEDIA / APP PREVIEW ==== -->
             <section class="lg:sticky lg:top-28 gs-reveal" aria-label="Guide preview">
                 <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-800">
 
-                    <!-- Main preview area -->
                     <div class="relative h-80 md:h-96 bg-gray-800">
                         <template x-for="(slide, i) in media" :key="i">
                             <div x-show="currentSlide === i"
@@ -107,7 +103,6 @@
                             </div>
                         </template>
 
-                        <!-- Arrows -->
                         <button @click="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-orange-600 text-white flex items-center justify-center transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
@@ -116,281 +111,8 @@
                         </button>
                     </div>
 
-                    <!-- Thumbnails -->
                     <div class="flex gap-2 p-3 bg-gray-900">
                         <template x-for="(slide, i) in media" :key="'thumb'+i">
                             <button @click="currentSlide = i"
                                     class="flex-1 h-16 rounded-lg overflow-hidden border-2 transition-all"
-                                    :class="currentSlide === i ? 'border-orange-600 opacity-100' : 'border-transparent opacity-50 hover:opacity-80'">
-                                <img :src="slide.image" class="w-full h-full object-cover" :alt="slide.caption">
-                            </button>
-                        </template>
-                    </div>
-                </div>
-
-                <p class="text-center text-xs text-gray-500 mt-3 uppercase tracking-wider font-bold">Preview of the interactive guide</p>
-            </section>
-
-            <!-- ==== MIDDLE: ITINERARY INFO ==== -->
-            <section class="gs-reveal">
-                <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
-
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
-                    <div class="w-16 h-1 bg-orange-600 mb-5"></div>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-8" x-text="guide.description"></p>
-
-                    <!-- Quick stats -->
-                    <div class="grid grid-cols-3 gap-4 text-center mb-10">
-                        <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-2xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.days"></div>
-                            <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Days</div>
-                        </div>
-                        <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-2xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.miles"></div>
-                            <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Miles</div>
-                        </div>
-                        <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-2xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.stops"></div>
-                            <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Stops</div>
-                        </div>
-                    </div>
-
-                    <!-- Day-by-day itinerary -->
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">The Itinerary</h2>
-                    <div class="space-y-4">
-                        <template x-for="(day, index) in itinerary" :key="index">
-                            <div x-data="{ expanded: false }" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                                <button @click="expanded = !expanded" class="w-full flex items-center gap-4 p-4 md:p-5 text-left hover:bg-gray-50 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold heading-font shrink-0" x-text="index + 1"></div>
-                                    <div class="flex-1 min-w-0">
-                                        <h3 class="font-bold text-gray-900 leading-tight" x-text="day.title"></h3>
-                                        <p class="text-sm text-gray-500" x-text="day.meta"></p>
-                                    </div>
-                                    <svg :class="{'rotate-180': expanded}" class="w-5 h-5 text-orange-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                                <div x-show="expanded" x-collapse class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100">
-                                    <ul class="list-disc list-inside text-gray-600 space-y-1 mb-3">
-                                        <template x-for="stop in day.highlights">
-                                            <li x-text="stop"></li>
-                                        </template>
-                                    </ul>
-                                    <p class="text-gray-600 italic text-sm" x-text="day.notes"></p>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- What's inside -->
-                    <h2 class="text-2xl font-bold text-gray-900 mt-10 mb-6">What's Inside</h2>
-                    <div class="grid sm:grid-cols-2 gap-3">
-                        <template x-for="feature in features" :key="feature">
-                            <div class="flex items-center gap-3 bg-white rounded-lg border border-gray-100 p-4 shadow-sm">
-                                <div class="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                </div>
-                                <span class="text-sm font-bold text-gray-800" x-text="feature"></span>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==== RIGHT: CHECKOUT ==== -->
-            <aside id="buy" class="lg:sticky lg:top-28 gs-reveal">
-                <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
-
-                    <div class="flex items-baseline gap-2 mb-1">
-                        <span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span>
-                        <span class="text-gray-500 line-through text-lg" x-show="guide.compareAt" x-text="'$' + guide.compareAt"></span>
-                    </div>
-                    <p class="text-sm text-gray-400 mb-6">Lifetime access · free updates to this route</p>
-
-                    <ul class="space-y-3 mb-8">
-                        <template x-for="item in checkoutIncludes" :key="item">
-                            <li class="flex items-start gap-3 text-sm text-gray-300">
-                                <svg class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span x-text="item"></span>
-                            </li>
-                        </template>
-                    </ul>
-
-                    <a :href="guide.checkoutUrl" target="_blank"
-                       class="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-full uppercase tracking-wider text-center transition-all transform hover:-translate-y-1 shadow-lg">
-                        Get Instant Access
-                    </a>
-                    <p class="text-center text-xs text-gray-500 mt-4">Instant delivery after checkout · works on any device</p>
-
-                    <div class="border-t border-gray-800 mt-6 pt-6">
-                        <div class="flex items-start gap-3 text-sm text-gray-400">
-                            <svg class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            <span>If a trail closes or a route changes, the guide gets updated — you never buy it twice.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Trust row -->
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <div class="glass-panel rounded-xl p-4 text-center">
-                        <div class="text-2xl font-bold text-gray-900 heading-font" x-text="guide.social.sold"></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Guides Sold</div>
-                    </div>
-                    <div class="glass-panel rounded-xl p-4 text-center">
-                        <div class="text-2xl font-bold text-gray-900 heading-font">★ <span x-text="guide.social.rating"></span></div>
-                        <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Avg Rating</div>
-                    </div>
-                </div>
-            </aside>
-
-        </div>
-    </main>
-
-    <!-- ============ FOOTER ============ -->
-    <footer class="bg-gray-950 py-12 text-center text-gray-500 text-sm">
-        <p>© <span x-text="new Date().getFullYear()"></span> Peak Tyler. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function guideData() {
-            return {
-                // ===== EDIT EVERYTHING BELOW — same pattern as your main site =====
-                guide: {
-                    title: "PNW Road Trip Field Guide",
-                    date: "Spring – Fall",
-                    location: "Pacific Northwest, USA",
-                    description: "The exact 40-day Pacific Northwest route — Oregon coast, waterfall corridor, Redwoods, and the Sierra parks — condensed into an interactive guide. Every stop, every campsite, every viewpoint I'd actually go back to.",
-                    price: 20,
-                    compareAt: null, // e.g. 35 to show a slashed price, or null to hide
-                    checkoutUrl: "https://your-checkout-link.com", // <-- Stripe / Gumroad / Lemon Squeezy link
-                    stats: {
-                        days: 40,
-                        miles: "3.2k",
-                        stops: 27
-                    },
-                    social: {
-                        sold: "500+",
-                        rating: "4.9"
-                    }
-                },
-
-                // Left-side media carousel — swap in your real app screenshots / photos
-                media: [
-                    {
-                        image: "https://www.traveloffpath.com/wp-content/uploads/2021/04/Top-10-Waterfalls-in-the-pacific-North-West.jpg",
-                        label: "Interactive Map",
-                        caption: "Every stop, pinned & routed"
-                    },
-                    {
-                        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-                        label: "Day-by-Day",
-                        caption: "Detailed daily breakdowns"
-                    },
-                    {
-                        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-                        label: "Camp Spots",
-                        caption: "Vetted campsites & pull-offs"
-                    }
-                ],
-                currentSlide: 0,
-                nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; },
-                prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
-
-                // Middle column — the itinerary sections (collapsible, same as your trips)
-                itinerary: [
-                    {
-                        title: "Oregon Coast",
-                        meta: "Days 1–8 · Cannon Beach → Samuel H. Boardman",
-                        highlights: [
-                            "Cannon Beach & Ecola State Park",
-                            "Thor's Well + Cape Perpetua",
-                            "Samuel H. Boardman Scenic Corridor",
-                            "Secret beach pull-offs (marked on map)"
-                        ],
-                        notes: "The coast sets the tone. Fog mornings, golden evenings — I've marked exactly where to be at sunset."
-                    },
-                    {
-                        title: "Waterfall Corridor & The Gorge",
-                        meta: "Days 9–15 · Columbia River Gorge",
-                        highlights: [
-                            "Panther Creek Falls",
-                            "Multnomah & the lesser-known tiers",
-                            "Best early-morning windows to skip crowds"
-                        ],
-                        notes: "This section alone is worth the trip. The guide includes which falls are drone-legal and where to park for the unmarked trailheads."
-                    },
-                    {
-                        title: "The Redwoods",
-                        meta: "Days 16–22 · Northern California",
-                        highlights: [
-                            "Jedediah Smith & Stout Grove",
-                            "Fern Canyon (permit info included)",
-                            "Avenue of the Giants drive-through"
-                        ],
-                        notes: "Permits, timing, and the exact groves that feel prehistoric without the tour buses."
-                    },
-                    {
-                        title: "Castle Crags → Yosemite",
-                        meta: "Days 23–31 · Sierra Nevada",
-                        highlights: [
-                            "Castle Crags summit trail",
-                            "Yosemite Valley + Glacier Point",
-                            "Where to camp when the valley is booked out"
-                        ],
-                        notes: "Includes my backup camp list for when reservations are impossible — this saved the trip twice."
-                    },
-                    {
-                        title: "Kings Canyon & Sequoia",
-                        meta: "Days 32–40 · Southern Sierra",
-                        highlights: [
-                            "General Sherman + Congress Trail",
-                            "Kings Canyon scenic byway",
-                            "The quiet alternative to Moro Rock"
-                        ],
-                        notes: "The finale. Less traffic than Yosemite, just as massive. Full exit-route options depending on where you're headed after."
-                    }
-                ],
-
-                // "What's Inside" grid
-                features: [
-                    "Interactive route map",
-                    "27 pinned stops & viewpoints",
-                    "Vetted campsites & pull-offs",
-                    "Permit & reservation cheat sheet",
-                    "Best photo timing per stop",
-                    "Offline-friendly access"
-                ],
-
-                // Right-side checkout bullets
-                checkoutIncludes: [
-                    "Full 40-day interactive itinerary",
-                    "Every stop mapped with GPS pins",
-                    "Campsite & permit notes",
-                    "Photography timing guide",
-                    "Works on phone, tablet & desktop",
-                    "Free lifetime updates"
-                ]
-            }
-        }
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        window.addEventListener('load', () => {
-            document.querySelectorAll(".gs-reveal").forEach(element => {
-                gsap.fromTo(element,
-                    { y: 50, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top 85%",
-                        }
-                    }
-                );
-            });
-        });
-    </script>
-</body>
-</html>
+                                    :class="currentSlide === i ? 'border-orange-600 opacity-10
