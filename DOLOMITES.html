@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dolomites Field Guide | Peak Tyler</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -22,17 +23,18 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0 relative">
             <div class="flex justify-between items-center w-full md:w-auto relative z-10">
                 <a href="index.html" class="text-xl md:text-2xl font-bold text-white tracking-tighter flex items-center gap-2 md:gap-3 group heading-font">
-                    <div class="w-7 h-7 md:w-8 md:h-8 border-2 border-white rounded-full flex items-center justify-center relative transition-transform duration-700 group-hover:rotate-180">
-                        <div class="w-0 h-0 border-l-[2.5px] border-l-transparent border-r-[2.5px] border-r-transparent border-b-[8px] border-b-orange-600 mb-1"></div>
-                    </div> PEAK TYLER
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-white shrink-0">
+                        <img src="logo.jpeg" alt="Peak Tyler" class="w-full h-full object-cover object-center">
+                    </div>
+                    PEAK TYLER
                 </a>
                 <a href="#buy" class="md:hidden bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full transition-all shadow-md">Get Guide</a>
             </div>
             <div class="flex items-center gap-5 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto md:absolute md:left-1/2 md:-translate-x-1/2 justify-start md:justify-center px-1 md:px-0">
-                <a href="pnw.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">PNW</a>
-                <a href="iceland.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Iceland</a>
-                <a href="switzerland.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Switzerland</a>
-                <a href="dolomites.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-orange-500 hover:text-orange-400 transition-colors">Dolomites</a>
+                <a href="PNW.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">PNW</a>
+                <a href="ICELAND.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Iceland</a>
+                <a href="SWITZERLAND.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Switzerland</a>
+                <a href="DOLOMITES.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-orange-500 hover:text-orange-400 transition-colors">Dolomites</a>
             </div>
             <div class="hidden md:block relative z-10"><a href="#buy" class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold uppercase tracking-widest px-5 py-2 rounded-full transition-all transform hover:-translate-y-0.5 shadow-lg">Get the Guide</a></div>
         </div>
@@ -40,7 +42,7 @@
 
     <main class="pt-28 md:pt-32 pb-16 px-4 md:px-6 max-w-3xl mx-auto">
         <div class="flex flex-col gap-10 md:gap-14 items-center">
-            <section class="w-full max-w-md mx-auto gs-reveal">
+            <section class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-800">
                     <div class="relative h-80 md:h-96 bg-gray-800">
                         <template x-for="(slide, i) in media" :key="i">
@@ -53,7 +55,7 @@
                 </div>
             </section>
 
-            <section class="w-full gs-reveal">
+            <section class="w-full">
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
                     <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
                     <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
@@ -79,7 +81,7 @@
                 </div>
             </section>
 
-            <aside id="buy" class="w-full max-w-md mx-auto gs-reveal">
+            <aside id="buy" class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
                     <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
@@ -104,7 +106,6 @@
                 ]
             }
         }
-        gsap.registerPlugin(ScrollTrigger); window.addEventListener('load', () => { document.querySelectorAll(".gs-reveal").forEach(el => { gsap.fromTo(el, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, scrollTrigger: { trigger: el, start: "top 85%" } }); }); });
     </script>
 </body>
 </html>
