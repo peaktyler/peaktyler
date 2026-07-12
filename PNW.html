@@ -42,7 +42,7 @@
 
     <main class="pt-28 md:pt-32 pb-16 px-4 md:px-6 max-w-3xl mx-auto">
         <div class="flex flex-col gap-10 md:gap-14 items-center">
-            <section class="w-full max-w-md mx-auto gs-reveal">
+            <section class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-800">
                     <div class="relative h-80 md:h-96 bg-gray-800">
                         <template x-for="(slide, i) in media" :key="i">
@@ -61,7 +61,7 @@
                 </div>
             </section>
 
-            <section class="w-full gs-reveal">
+            <section class="w-full">
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
                     <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
                     <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
@@ -81,7 +81,7 @@
                                     <div class="flex-1 min-w-0"><h3 class="font-bold text-gray-900 leading-tight" x-text="day.title"></h3><p class="text-xs md:text-sm text-gray-500 mt-0.5" x-text="day.meta"></p></div>
                                     <svg :class="{'rotate-180': expanded}" class="w-5 h-5 text-orange-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100">
+                                <div x-show="expanded" class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100">
                                     <ul class="list-disc list-inside text-gray-600 text-sm md:text-base space-y-1 mb-3"><template x-for="stop in day.highlights"><li x-text="stop"></li></template></ul>
                                     <p class="text-gray-600 italic text-sm" x-text="day.notes"></p>
                                 </div>
@@ -91,7 +91,7 @@
                 </div>
             </section>
 
-            <aside id="buy" class="w-full max-w-md mx-auto gs-reveal">
+            <aside id="buy" class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
                     <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
@@ -119,8 +119,6 @@
                 ]
             }
         }
-        gsap.registerPlugin(ScrollTrigger);
-        window.addEventListener('load', () => { document.querySelectorAll(".gs-reveal").forEach(el => { gsap.fromTo(el, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, scrollTrigger: { trigger: el, start: "top 85%" } }); }); });
     </script>
 </body>
 </html>
