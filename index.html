@@ -17,65 +17,73 @@
         .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
     </style>
 </head>
-<body class="topo-bg min-h-screen p-6 md:p-12">
+<body class="topo-bg min-h-screen p-4 md:p-8">
 
-    <header class="text-center mb-16">
-        <h1 class="text-gray-900 text-5xl font-bold heading-font tracking-tight">PEAK TYLER</h1>
-        <p class="text-gray-600 mt-2 uppercase tracking-widest text-sm font-bold">Select your field guide</p>
+    <header class="text-center mb-8">
+        <h1 class="text-gray-900 text-3xl md:text-5xl font-bold heading-font tracking-tight">PEAK TYLER</h1>
+        <p class="text-gray-600 mt-1 uppercase tracking-widest text-xs font-bold">Select your field guide</p>
     </header>
 
     <!-- 4-Column Grid -->
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
 
         <!-- PNW -->
-        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b', 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-            <a href="PNW.html" class="block relative h-48 overflow-hidden group">
-                <img :src="images[active]" class="w-full h-full object-cover">
-                <button @click.stop.prevent="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                <button @click.stop.prevent="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
-            </a>
-            <div class="p-5">
-                <h2 class="text-gray-900 font-bold heading-font">PNW</h2>
-                <a href="PNW.html" class="mt-4 block w-full text-center bg-gray-900 text-white text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
+        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b', 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <div class="relative h-32 md:h-48 overflow-hidden">
+                <a href="PNW.html" class="absolute inset-0 z-0">
+                    <img :src="images[active]" class="w-full h-full object-cover">
+                </a>
+                <button @click.stop="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button @click.stop="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+            <div class="p-3 md:p-4 flex-grow flex flex-col justify-between">
+                <h2 class="text-gray-900 font-bold heading-font text-sm md:text-base">PNW</h2>
+                <a href="PNW.html" class="mt-2 block w-full text-center bg-gray-900 text-white text-[10px] md:text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
             </div>
         </div>
 
         <!-- Iceland -->
-        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1520769945061-0a448c463865', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-            <a href="ICELAND.html" class="block relative h-48 overflow-hidden group">
-                <img :src="images[active]" class="w-full h-full object-cover">
-                <button @click.stop.prevent="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                <button @click.stop.prevent="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
-            </a>
-            <div class="p-5">
-                <h2 class="text-gray-900 font-bold heading-font">Iceland</h2>
-                <a href="ICELAND.html" class="mt-4 block w-full text-center bg-gray-900 text-white text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
+        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1520769945061-0a448c463865', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <div class="relative h-32 md:h-48 overflow-hidden">
+                <a href="ICELAND.html" class="absolute inset-0 z-0">
+                    <img :src="images[active]" class="w-full h-full object-cover">
+                </a>
+                <button @click.stop="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button @click.stop="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+            <div class="p-3 md:p-4 flex-grow flex flex-col justify-between">
+                <h2 class="text-gray-900 font-bold heading-font text-sm md:text-base">Iceland</h2>
+                <a href="ICELAND.html" class="mt-2 block w-full text-center bg-gray-900 text-white text-[10px] md:text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
             </div>
         </div>
 
         <!-- Switzerland -->
-        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1527838832700-5059252419fa', 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-            <a href="SWITZERLAND.html" class="block relative h-48 overflow-hidden group">
-                <img :src="images[active]" class="w-full h-full object-cover">
-                <button @click.stop.prevent="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                <button @click.stop.prevent="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
-            </a>
-            <div class="p-5">
-                <h2 class="text-gray-900 font-bold heading-font">Switzerland</h2>
-                <a href="SWITZERLAND.html" class="mt-4 block w-full text-center bg-gray-900 text-white text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
+        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1527838832700-5059252419fa', 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <div class="relative h-32 md:h-48 overflow-hidden">
+                <a href="SWITZERLAND.html" class="absolute inset-0 z-0">
+                    <img :src="images[active]" class="w-full h-full object-cover">
+                </a>
+                <button @click.stop="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button @click.stop="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+            <div class="p-3 md:p-4 flex-grow flex flex-col justify-between">
+                <h2 class="text-gray-900 font-bold heading-font text-sm md:text-base">Switzerland</h2>
+                <a href="SWITZERLAND.html" class="mt-2 block w-full text-center bg-gray-900 text-white text-[10px] md:text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
             </div>
         </div>
 
         <!-- Dolomites -->
-        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1516675335469-b570222161f3', 'https://images.unsplash.com/photo-1530731141654-599292d52c16'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-            <a href="DOLOMITES.html" class="block relative h-48 overflow-hidden group">
-                <img :src="images[active]" class="w-full h-full object-cover">
-                <button @click.stop.prevent="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                <button @click.stop.prevent="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-2 inset-y-0 my-auto h-8 w-8 bg-white/80 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
-            </a>
-            <div class="p-5">
-                <h2 class="text-gray-900 font-bold heading-font">Dolomites</h2>
-                <a href="DOLOMITES.html" class="mt-4 block w-full text-center bg-gray-900 text-white text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
+        <div x-data="{ active: 0, images: ['https://images.unsplash.com/photo-1516675335469-b570222161f3', 'https://images.unsplash.com/photo-1530731141654-599292d52c16'] }" class="glass-panel rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <div class="relative h-32 md:h-48 overflow-hidden">
+                <a href="DOLOMITES.html" class="absolute inset-0 z-0">
+                    <img :src="images[active]" class="w-full h-full object-cover">
+                </a>
+                <button @click.stop="active = (active === 0) ? images.length - 1 : active - 1" class="absolute left-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button @click.stop="active = (active === images.length - 1) ? 0 : active + 1" class="absolute right-1 inset-y-0 my-auto h-7 w-7 bg-white/90 rounded-full flex items-center justify-center shadow z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+            <div class="p-3 md:p-4 flex-grow flex flex-col justify-between">
+                <h2 class="text-gray-900 font-bold heading-font text-sm md:text-base">Dolomites</h2>
+                <a href="DOLOMITES.html" class="mt-2 block w-full text-center bg-gray-900 text-white text-[10px] md:text-sm font-bold py-2 rounded-lg hover:bg-orange-600 transition-colors">View Guide</a>
             </div>
         </div>
 
