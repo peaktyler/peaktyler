@@ -5,7 +5,6 @@
     <title>PNW Field Guide | Peak Tyler</title>
     <link rel="icon" type="image/jpeg" href="logo.jpeg">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -55,3 +54,73 @@
                                     <p class="text-white font-bold text-lg heading-font" x-text="slide.caption"></p>
                                 </div>
                             </div>
+                        </template>
+                        <button @click="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-orange-600 text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                        <button @click="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-orange-600 text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w-full gs-reveal">
+                <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
+                    <div class="w-16 h-1 bg-orange-600 mb-5"></div>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8" x-text="guide.description"></p>
+                    <div class="grid grid-cols-3 gap-3 md:gap-4 text-center mb-10">
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.days"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Days</div></div>
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.miles"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Miles</div></div>
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.stops"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Stops</div></div>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">The Itinerary</h2>
+                    <div class="space-y-4">
+                        <template x-for="(day, index) in itinerary" :key="index">
+                            <div x-data="{ expanded: false }" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                                <button @click="expanded = !expanded" class="w-full flex items-center gap-3 md:gap-4 p-4 md:p-5 text-left hover:bg-gray-50 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold heading-font shrink-0" x-text="index + 1"></div>
+                                    <div class="flex-1 min-w-0"><h3 class="font-bold text-gray-900 leading-tight" x-text="day.title"></h3><p class="text-xs md:text-sm text-gray-500 mt-0.5" x-text="day.meta"></p></div>
+                                    <svg :class="{'rotate-180': expanded}" class="w-5 h-5 text-orange-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <div x-show="expanded" x-collapse class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100">
+                                    <ul class="list-disc list-inside text-gray-600 text-sm md:text-base space-y-1 mb-3"><template x-for="stop in day.highlights"><li x-text="stop"></li></template></ul>
+                                    <p class="text-gray-600 italic text-sm" x-text="day.notes"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <aside id="buy" class="w-full max-w-md mx-auto gs-reveal">
+                <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
+                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
+                    <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
+                    <a :href="guide.checkoutUrl" target="_blank" class="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-full uppercase tracking-wider text-center transition-all transform hover:-translate-y-1 shadow-lg mt-6">Get Instant Access</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        function guideData() {
+            return {
+                guide: {
+                    title: "PNW Spring Road Trip Guide",
+                    date: "Late April",
+                    location: "Pacific Northwest",
+                    description: "A 5-day route through the best regional nature spots in the Pacific Northwest. Specifically paced for active recovery—perfect if you or a partner are coming off a big effort like a marathon and want high-reward views without blowing out your legs.",
+                    price: 20, checkoutUrl: "#", stats: { days: 5, miles: "450", stops: 12 }
+                },
+                media: [{ image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3", label: "Recovery Route", caption: "High views, low mileage" }],
+                currentSlide: 0, nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; }, prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
+                itinerary: [
+                    { title: "Oregon Coast Highway", meta: "Days 1–2", highlights: ["Cannon Beach", "Ecola State Park drive-ups"], notes: "Flat beach walks to stretch out the legs." },
+                    { title: "Columbia River Gorge", meta: "Days 3–5", highlights: ["Multnomah Falls", "Hood River loop"], notes: "Great pull-offs for drone scouting." }
+                ]
+            }
+        }
+        gsap.registerPlugin(ScrollTrigger);
+        window.addEventListener('load', () => { document.querySelectorAll(".gs-reveal").forEach(el => { gsap.fromTo(el, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, scrollTrigger: { trigger: el, start: "top 85%" } }); }); });
+    </script>
+</body>
+</html>
