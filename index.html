@@ -1,171 +1,47 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Field Guide | Peak Tyler</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
-
-        body { font-family: 'Outfit', sans-serif; }
-        h1, h2, h3, .heading-font { font-family: 'Space Grotesk', sans-serif; }
-
-        /* Topo Map Background */
-        .topo-bg {
-            background-color: #f3f4f6;
-            background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topoPattern' patternUnits='userSpaceOnUse' width='500' height='500' viewBox='0 0 500 500'%3E%3Cpath d='M0 250 Q 125 100, 250 250 Q 375 400, 500 250 M0 270 Q 125 120, 250 270 Q 375 420, 500 270 M0 230 Q 125 80, 250 230 Q 375 380, 500 230 M0 300 Q 125 150, 250 300 Q 375 450, 500 300 M0 200 Q 125 50, 250 200 Q 375 350, 500 200 M0 350 Q 125 200, 250 350 Q 375 500, 500 350 M0 150 Q 125 0, 250 150 Q 375 300, 500 150' stroke='%239ca3af' stroke-opacity='0.3' fill='none' stroke-width='1.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23topoPattern)'/%3E%3C/svg%3E");
-            background-size: 500px 500px;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1f2937; }
-
-        /* Hide scrollbar for mobile nav */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .text-shadow {
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-    </style>
 </head>
-<body class="text-gray-800 topo-bg overflow-x-hidden" x-data="guideData()">
+<body class="topo-bg" x-data="{ currentView: 'PNW' }">
 
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300"
-         x-data="{ scrolled: false }"
-         @scroll.window="scrolled = (window.pageYOffset > 50)"
-         :class="scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg py-2 md:py-3' : 'bg-gray-900/80 backdrop-blur-md py-3 md:py-4'">
-
-        <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0 relative">
-            
-            <div class="flex justify-between items-center w-full md:w-auto relative z-10">
-                <a href="index.html" class="text-xl md:text-2xl font-bold text-white tracking-tighter flex items-center gap-2 md:gap-3 group heading-font">
-                    <div class="w-7 h-7 md:w-8 md:h-8 border-2 border-white rounded-full flex items-center justify-center relative transition-transform duration-700 group-hover:rotate-180">
-                        <div class="w-0 h-0 border-l-[2.5px] border-l-transparent border-r-[2.5px] border-r-transparent border-b-[8px] border-b-orange-600 mb-1"></div>
-                    </div>
-                    PEAK TYLER
-                </a>
-                
-                <a href="#buy" class="md:hidden bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full transition-all shadow-md">
-                    Get Guide
-                </a>
-            </div>
-
-            <div class="flex items-center gap-5 md:gap-8 overflow-x-auto no-scrollbar w-full md:w-auto md:absolute md:left-1/2 md:-translate-x-1/2 justify-start md:justify-center px-1 md:px-0">
-                <a href="PNW.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-orange-500 hover:text-orange-400 transition-colors">PNW</a>
-                <a href="ICELAND.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Iceland</a>
-                <a href="SWITZERLAND.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Switzerland</a>
-                <a href="DOLOMITES.html" class="whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-orange-500 transition-colors">Dolomites</a>
-            </div>
-
-            <div class="hidden md:block relative z-10">
-                <a href="#buy" class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold uppercase tracking-widest px-5 py-2 rounded-full transition-all transform hover:-translate-y-0.5 shadow-lg">
-                    Get the Guide
-                </a>
-            </div>
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/90 backdrop-blur-md py-4">
+        <div class="flex justify-center gap-6">
+            <button @click="currentView = 'PNW'" :class="currentView === 'PNW' ? 'text-orange-500' : 'text-gray-300'" class="font-bold uppercase tracking-widest text-sm">PNW</button>
+            <button @click="currentView = 'ICELAND'" :class="currentView === 'ICELAND' ? 'text-orange-500' : 'text-gray-300'" class="font-bold uppercase tracking-widest text-sm">Iceland</button>
+            <button @click="currentView = 'SWITZERLAND'" :class="currentView === 'SWITZERLAND' ? 'text-orange-500' : 'text-gray-300'" class="font-bold uppercase tracking-widest text-sm">Switzerland</button>
+            <button @click="currentView = 'DOLOMITES'" :class="currentView === 'DOLOMITES' ? 'text-orange-500' : 'text-gray-300'" class="font-bold uppercase tracking-widest text-sm">Dolomites</button>
         </div>
     </nav>
 
-    <main class="pt-28 md:pt-32 pb-16 px-4 md:px-6 max-w-3xl mx-auto">
-        <div class="flex flex-col gap-10 md:gap-14 items-center">
+    <!-- CONTENT AREAS -->
+    <main class="pt-28 pb-16 px-4 max-w-3xl mx-auto">
+        
+        <div x-show="currentView === 'PNW'">
+            <h1 class="text-4xl font-bold">PNW Guide</h1>
+            <p>Welcome to the PNW section. Edit this text once here, and it updates everywhere.</p>
+        </div>
 
-            <section class="w-full max-w-md mx-auto gs-reveal" aria-label="Guide preview">
-                <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-800">
-                    <div class="relative h-80 md:h-96 bg-gray-800">
-                        <template x-for="(slide, i) in media" :key="i">
-                            <div x-show="currentSlide === i"
-                                 x-transition:enter="transition ease-out duration-500"
-                                 x-transition:enter-start="opacity-0"
-                                 x-transition:enter-end="opacity-100"
-                                 class="absolute inset-0">
-                                <img :src="slide.image" :alt="slide.caption" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
-                                <div class="absolute bottom-0 left-0 p-5">
-                                    <span class="text-xs font-bold text-orange-400 uppercase tracking-wider" x-text="slide.label"></span>
-                                    <p class="text-white font-bold text-lg heading-font" x-text="slide.caption"></p>
-                                </div>
-                            </div>
-                        </template>
+        <div x-show="currentView === 'ICELAND'">
+            <h1 class="text-4xl font-bold">Iceland Guide</h1>
+            <p>Welcome to the Iceland section.</p>
+        </div>
 
-                        <button @click="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-orange-600 text-white flex items-center justify-center transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        </button>
-                        <button @click="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-orange-600 text-white flex items-center justify-center transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
-                    </div>
+        <div x-show="currentView === 'SWITZERLAND'">
+            <h1 class="text-4xl font-bold">Switzerland Guide</h1>
+            <p>Welcome to the Switzerland section.</p>
+        </div>
 
-                    <div class="flex gap-2 p-3 bg-gray-900">
-                        <template x-for="(slide, i) in media" :key="'thumb'+i">
-                            <button @click="currentSlide = i"
-                                    class="flex-1 h-16 rounded-lg overflow-hidden border-2 transition-all"
-                                    :class="currentSlide === i ? 'border-orange-600 opacity-100' : 'border-transparent opacity-50 hover:opacity-80'">
-                                <img :src="slide.image" class="w-full h-full object-cover" :alt="slide.caption">
-                            </button>
-                        </template>
-                    </div>
-                </div>
+        <div x-show="currentView === 'DOLOMITES'">
+            <h1 class="text-4xl font-bold">Dolomites Guide</h1>
+            <p>Welcome to the Dolomites section.</p>
+        </div>
 
-                <p class="text-center text-xs text-gray-500 mt-3 uppercase tracking-wider font-bold">Preview of the interactive guide</p>
-            </section>
-
-            <section class="w-full gs-reveal">
-                <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
-
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
-                    <div class="w-16 h-1 bg-orange-600 mb-5"></div>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-8" x-text="guide.description"></p>
-
-                    <div class="grid grid-cols-3 gap-3 md:gap-4 text-center mb-10">
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.days"></div>
-                            <div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Days</div>
-                        </div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.miles"></div>
-                            <div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Miles</div>
-                        </div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                            <div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.stops"></div>
-                            <div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Stops</div>
-                        </div>
-                    </div>
-
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">The Itinerary</h2>
-                    <div class="space-y-4">
-                        <template x-for="(day, index) in itinerary" :key="index">
-                            <div x-data="{ expanded: false }" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                                <button @click="expanded = !expanded" class="w-full flex items-center gap-3 md:gap-4 p-4 md:p-5 text-left hover:bg-gray-50 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold heading-font shrink-0" x-text="index + 1"></div>
-                                    <div class="flex-1 min-w-0">
-                                        <h3 class="font-bold text-gray-900 leading-tight" x-text="day.title"></h3>
-                                        <p class="text-xs md:text-sm text-gray-500 mt-0.5" x-text="day.meta"></p>
-                                    </div>
-                                    <svg :class="{'rotate-180': expanded}" class="w-5 h-5 text-orange-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                                <div x-show="expanded" x-collapse class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100">
-                                    <ul class="list-disc list-inside text-gray-600 text-sm md:text-base space-y-1 mb-3">
-                                        <template x-for="stop in day.highlights">
-                                            <li x-text="stop"></li>
-                                        </template>
-                                    </ul>
-                                    <p class="text-gray-600 italic text-sm" x-text="day.notes"></p>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
+    </main>
+</body>
+</html>
