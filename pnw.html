@@ -102,16 +102,9 @@
             <!-- TITLE + DESCRIPTION + STATS + WHAT'S IN THE GUIDE -->
             <section class="w-full">
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full uppercase" x-text="guide.date + ' | ' + guide.location"></span>
                     <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-3" x-text="guide.title"></h1>
                     <div class="w-16 h-1 bg-orange-600 mb-5"></div>
                     <p class="text-lg text-gray-600 leading-relaxed mb-8" x-text="guide.description"></p>
-                    <div class="grid grid-cols-3 gap-3 md:gap-4 text-center mb-10">
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.spots"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Spots</div></div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.states"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">States</div></div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.videos"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">My Videos</div></div>
-                    </div>
-
                     <!-- WHAT'S INCLUDED -->
                     <h2 class="text-2xl font-bold text-gray-900 mb-6">What's Inside</h2>
                     <div class="grid sm:grid-cols-2 gap-3 mb-10">
@@ -129,7 +122,8 @@
                     </div>
 
                     <!-- THE SPOTS, BY STATE -->
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">The Spots</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">The Spots</h2>
+                    <p class="text-sm text-gray-500 mb-6" x-text="guide.stats.spots + ' spots across ' + guide.stats.states + ' states, ' + guide.stats.videos + ' with my video attached'"></p>
                     <div class="space-y-4 mb-10">
                         <template x-for="(day, index) in itinerary" :key="index">
                             <div x-data="{ expanded: false }" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
@@ -204,30 +198,6 @@
                 </div>
             </section>
 
-            <!-- BUY BOX -->
-            <aside id="buy" class="w-full max-w-md mx-auto">
-                <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
-                    <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
-                    <p class="text-gray-400 text-sm mt-2" x-text="guide.deliveryNote"></p>
-                    <a :href="guide.checkoutUrl" @click="trackCheckout()" class="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-full uppercase tracking-wider text-center transition-all transform hover:-translate-y-1 shadow-lg mt-6">Get Instant Access</a>
-                    <div class="grid grid-cols-3 gap-2 mt-6 text-center">
-                        <div class="flex flex-col items-center gap-1.5">
-                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            <span class="text-[10px] uppercase tracking-wider text-gray-400">Instant delivery</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            <span class="text-[10px] uppercase tracking-wider text-gray-400">Secure Stripe checkout</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-[10px] uppercase tracking-wider text-gray-400" x-text="guide.guarantee"></span>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
             <!-- FAQ -->
             <section class="w-full">
                 <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-sm">
@@ -248,30 +218,46 @@
                 </div>
             </section>
 
-            <!-- EMAIL CAPTURE: swap form action for your Kit (ConvertKit) form endpoint -->
-            <section class="w-full">
-                <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white text-center">
-                    <h2 class="text-xl md:text-2xl font-bold heading-font mb-2" x-text="leadMagnet.headline"></h2>
-                    <p class="text-gray-400 text-sm mb-6" x-text="leadMagnet.subline"></p>
-                    <form :action="leadMagnet.formAction" method="post" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                        <input type="email" name="email_address" required placeholder="you@email.com" class="flex-1 rounded-full bg-white/10 border border-white/20 px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500">
-                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-lg" x-text="leadMagnet.buttonText"></button>
-                    </form>
-                    <p class="text-[11px] text-gray-500 mt-4">No spam. Unsubscribe anytime.</p>
+            <!-- BUY BOX -->
+            <aside id="buy" class="w-full max-w-md mx-auto">
+                <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
+                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
+                    <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
+                    <p class="text-gray-400 text-sm mt-2" x-text="guide.deliveryNote"></p>
+
+                    <!-- Stripe Embedded Checkout mounts here -->
+                    <div id="checkout" class="mt-6"></div>
+                    <p id="checkout-loading" class="text-center text-gray-500 text-sm mt-6">Loading checkout…</p>
+
+                    <div class="grid grid-cols-2 gap-2 mt-6 text-center">
+                        <div class="flex flex-col items-center gap-1.5">
+                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span class="text-[10px] uppercase tracking-wider text-gray-400">Instant delivery</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <span class="text-[10px] uppercase tracking-wider text-gray-400">Secure Stripe checkout</span>
+                        </div>
+                    </div>
                 </div>
+            </aside>
+
+            <!-- CONTACT: simple mailto, no backend needed. Deliberately understated. -->
+            <section class="w-full">
+                <p class="text-center text-xs text-gray-400">
+                    Got a question? <a href="mailto:tyler@peaktyler.com?subject=Question about the PNW Guide" class="underline hover:text-gray-600">Email me</a>
+                </p>
             </section>
 
         </div>
     </main>
 
-    <!-- STICKY MOBILE BUY BAR -->
-    <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 flex items-center justify-between gap-3"
-         x-data="{ show: false }" @scroll.window="show = window.pageYOffset > 600" x-show="show" x-transition>
-        <div>
-            <p class="text-white font-bold heading-font leading-none" x-text="'$' + guide.price"></p>
-            <p class="text-gray-400 text-[10px] uppercase tracking-wider mt-1">One-time · Instant access</p>
-        </div>
-        <a href="#buy" class="bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full shadow-lg">Get the Guide</a>
+    <!-- STICKY MOBILE BUY BAR: one large tappable button, shows earlier on scroll -->
+    <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800 p-3"
+         x-data="{ show: false }" @scroll.window="show = window.pageYOffset > 200" x-show="show" x-transition>
+        <a href="#buy" class="flex items-center justify-center gap-2 w-full bg-orange-600 hover:bg-orange-700 text-white font-bold text-base uppercase tracking-wide py-4 rounded-full shadow-lg">
+            <span x-text="'Get Instant Access — $' + guide.price"></span>
+        </a>
     </div>
 
     <script>
@@ -279,21 +265,18 @@
             return {
                 guide: {
                     title: "The PNW Spot Guide",
-                    date: "20 Spots",
-                    location: "WA · OR · CA",
                     description: "Every Pacific Northwest spot from my videos, in one interactive guide. You've seen the Reels. This is where they were shot. Each spot has my notes, my video from that exact location, the AllTrails link, and one-tap directions. It's how I plan my own trips, packaged so you can plan yours.",
                     price: 20,
-                    checkoutUrl: "#", // Stripe Payment Link. UTM params are auto-appended by init()
+                    checkoutUrl: "https://buy.stripe.com/4gM5kD5FJ7kO5jMfRDew800", // Stripe Payment Link. UTM params are auto-appended by init()
                     stats: { spots: 20, states: 3, videos: 16 },
-                    deliveryNote: "Instant access to the interactive guide. Works on your phone, nothing to download.",
-                    guarantee: "7-day refund" // shown in the trust row under the buy button
+                    deliveryNote: "Instant access to the interactive guide. Works on your phone, nothing to download."
                 },
 
                 creator: {
                     tagline: "Nature & travel · 78M+ views per month",
                     bio: "I find spots the same way you do: scrolling, saving, digging for the exact location, figuring out when the light hits. This guide is all of that work done: every spot I've filmed in the PNW, with my honest notes on what's worth it, how hard it is to reach, and the shot you're driving there for. Every spot tested in person, nothing pulled off a blog.",
-                    tiktokFollowers: "168K",
-                    instagramFollowers: "212K",
+                    tiktokFollowers: "174K",
+                    instagramFollowers: "224K",
                     tiktokUrl: "https://www.tiktok.com/@peaktyler",
                     instagramUrl: "https://www.instagram.com/peaktylerr/"
                 },
@@ -349,16 +332,7 @@
                     { q: "When can I use it?", a: "Anytime. This isn't a fixed route or a seasonal itinerary. Pick the spots you want, build your own trip. Each spot card notes anything seasonal (waterfall flow, snow, road closures, permits) so you know what to expect for your dates." },
                     { q: "Is this beginner-friendly?", a: "Mostly, yes. Every spot is labeled easy, moderate, or hard, and plenty are roadside pull-offs or short walks. A few (like Camp Muir on Rainier) are serious efforts, and the guide is honest about which is which." },
                     { q: "How is this different from just Googling the spots?", a: "You could find some of these on your own. That's literally how I found them, hours of scrolling and saving and cross-referencing. This is all of that done: the exact locations from my videos, with the notes I wish existed when I was planning. One place instead of forty open tabs." },
-                    { q: "What if it's not what I expected?", a: "Email me within 7 days of purchase and I'll refund you. No forms, no hassle." },
-                    { q: "Can I share it with my trip partner?", a: "Yes, share it with whoever's in the car with you. Just don't repost it publicly." }
                 ],
-
-                leadMagnet: {
-                    headline: "Not ready to buy?",
-                    subline: "Get 3 free spots from the guide with full notes, video, and directions, straight to your inbox.",
-                    buttonText: "Send it",
-                    formAction: "#" // Replace with your Kit (ConvertKit) form endpoint, e.g. https://app.kit.com/forms/XXXXXXX/subscriptions
-                },
 
                 media: [{ image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3", label: "The PNW Spot Guide", caption: "20 spots. My notes. My videos. One map." }],
                 currentSlide: 0,
@@ -391,6 +365,25 @@
                 }
             }
         }
+    </script>
+    <!-- Stripe Embedded Checkout: loads the card form directly into #checkout above -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        (async function initStripeCheckout() {
+            try {
+                const stripe = Stripe('pk_live_51Tssf9ERsltmMNDAbni1D6jUeF1QQhteMeJncmyAASclbcBNYO81omcMKFlofLhEgBTzP6F0Ib7h8HfTzDqF5Zo200GLrfv8tX');
+                const res = await fetch('https://peaktyler-checkout.vercel.app/api/create-checkout-session', {
+                    method: 'POST'
+                });
+                const { clientSecret } = await res.json();
+                const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
+                document.getElementById('checkout-loading').style.display = 'none';
+                checkout.mount('#checkout');
+            } catch (err) {
+                document.getElementById('checkout-loading').textContent = 'Checkout unavailable right now, refresh or email tyler@peaktyler.com';
+                console.error('Stripe embed failed:', err);
+            }
+        })();
     </script>
 </body>
 </html>
