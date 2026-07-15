@@ -221,15 +221,15 @@
             <!-- BUY BOX -->
             <aside id="buy" class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">One-Time Purchase</p>
-                    <div class="flex items-baseline gap-2 mb-1"><span class="text-5xl font-bold heading-font" x-text="'$' + guide.price"></span></div>
-                    <p class="text-gray-400 text-sm mt-2" x-text="guide.deliveryNote"></p>
-
                     <!-- Stripe Embedded Checkout mounts here -->
-                    <div id="checkout" class="mt-6"></div>
-                    <p id="checkout-loading" class="text-center text-gray-500 text-sm mt-6">Loading checkout…</p>
+                    <div id="checkout"></div>
+                    <p id="checkout-loading" class="text-center text-gray-500 text-sm">Loading checkout…</p>
 
-                    <div class="grid grid-cols-2 gap-2 mt-6 text-center">
+                    <div class="grid grid-cols-3 gap-2 mt-6 text-center">
+                        <div class="flex flex-col items-center gap-1.5">
+                            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5.586a1 1 0 01.707.293l6.414 6.414a1 1 0 010 1.414l-7.586 7.586a1 1 0 01-1.414 0L3.293 12.293A1 1 0 013 11.586V6a3 3 0 013-3z"></path></svg>
+                            <span class="text-[10px] uppercase tracking-wider text-gray-400">One-time purchase</span>
+                        </div>
                         <div class="flex flex-col items-center gap-1.5">
                             <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             <span class="text-[10px] uppercase tracking-wider text-gray-400">Instant delivery</span>
