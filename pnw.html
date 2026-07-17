@@ -141,25 +141,10 @@
                         </template>
                     </div>
 
-                    <!-- FREE PREVIEW: APP SCREENSHOT (click to enlarge) -->
+                    <!-- FREE PREVIEW: APP SCREENSHOT -->
                     <h2 class="text-2xl font-bold text-gray-900 mb-2" x-text="appPreview.headline"></h2>
                     <p class="text-gray-500 text-sm mb-6" x-text="appPreview.subline"></p>
-                    <div x-data="{ lightbox: false }">
-                        <button @click="lightbox = true" class="block w-full cursor-zoom-in" aria-label="Open larger preview">
-                            <img :src="appPreview.image" :alt="appPreview.caption" class="w-full rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        </button>
-                        <p class="text-center text-xs text-gray-400 mt-4" x-text="appPreview.caption"></p>
-
-                        <!-- LIGHTBOX -->
-                        <div x-show="lightbox" x-cloak @click="lightbox = false" @keydown.escape.window="lightbox = false"
-                             x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                             class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out">
-                            <button @click="lightbox = false" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            </button>
-                            <img @click.stop :src="appPreview.image" :alt="appPreview.caption" class="max-w-full max-h-full rounded-xl">
-                        </div>
-                    </div>
+                    <img :src="appPreview.image" :alt="appPreview.headline" class="w-full rounded-2xl shadow-lg">
                 </div>
             </section>
 
@@ -282,10 +267,10 @@
                 },
 
                 creator: {
-                    tagline: "Nature & travel · 78M+ views per month",
+                    tagline: "Nature & travel · 75M+ views per month",
                     bio: "I find spots the same way you do: scrolling, saving, digging for the exact location, figuring out when the light hits. This guide is all of that work done: every spot I've filmed in the PNW, with my honest notes on what's worth it, how hard it is to reach, and the shot you're driving there for. Every spot tested in person, nothing pulled off a blog.",
-                    tiktokFollowers: "174K",
-                    instagramFollowers: "224K",
+                    tiktokFollowers: "179K",
+                    instagramFollowers: "228K",
                     tiktokUrl: "https://www.tiktok.com/@peaktyler",
                     instagramUrl: "https://www.instagram.com/peaktylerr/"
                 },
@@ -299,8 +284,6 @@
                     { title: "Save spots & track visits", detail: "Heart the spots you want and mark them visited as you go. Build your own trip from my list." }
                 ],
 
-                // Spot list grouped by state. Famous anchors named, hidden spots teased.
-                // Full spot names stay behind the paywall on purpose.
                 itinerary: [
                     {
                         title: "Oregon", count: 8, meta: "Waterfalls, the coast, and Crater Lake",
@@ -322,11 +305,9 @@
                 appPreview: {
                     headline: "See Inside the Guide",
                     subline: "A quick look at exactly what you get the second you check out.",
-                    image: "https://i.postimg.cc/tgSZ8T0W/Chat-GPT-Image-Jul-17-2026-11-27-29-AM.png",
-                    caption: "The home page with filters, a full spot page with all the hike info, and every spot mapped out."
+                    image: "https://i.postimg.cc/tgSZ8T0W/Chat-GPT-Image-Jul-17-2026-11-27-29-AM.png"
                 },
 
-                // Add entries as reviews come in; section stays hidden while empty
                 testimonials: [
                     // { name: "Sarah M.", quote: "Found three spots I'd never seen anywhere else. The parking notes alone saved us an hour." },
                 ],
@@ -343,7 +324,6 @@
                 nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; },
                 prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
 
-                // ---- Analytics helpers ----------------------------------
                 trackCheckout() {
                     try {
                         if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: this.guide.title, value: this.guide.price, currency: 'USD' });
