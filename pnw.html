@@ -140,18 +140,25 @@
                         </template>
                     </div>
 
-                    <!-- FREE PREVIEW: APP SCREENSHOTS -->
+                    <!-- FREE PREVIEW: APP SCREENSHOTS (paged, like the hero) -->
                     <h2 class="text-2xl font-bold text-gray-900 mb-2" x-text="appPreview.headline"></h2>
                     <p class="text-gray-500 text-sm mb-6" x-text="appPreview.subline"></p>
-                    <div class="-mx-6 md:-mx-8 px-6 md:px-8 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
-                        <template x-for="shot in appPreview.screenshots" :key="shot.image">
-                            <div class="shrink-0 w-48 snap-center">
-                                <div class="bg-gray-900 rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-1.5">
-                                    <img :src="shot.image" :alt="shot.caption" class="w-full rounded-xl">
-                                </div>
-                                <p class="text-xs text-gray-500 mt-2 text-center leading-snug" x-text="shot.caption"></p>
+                    <div x-data="{ shotIndex: 0 }" class="max-w-[260px] mx-auto">
+                        <div class="relative">
+                            <div class="bg-gray-900 rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-1.5">
+                                <template x-for="(shot, i) in appPreview.screenshots" :key="shot.image">
+                                    <img x-show="shotIndex === i" :src="shot.image" :alt="shot.caption" class="w-full rounded-xl">
+                                </template>
                             </div>
-                        </template>
+                            <button @click="shotIndex = (shotIndex - 1 + appPreview.screenshots.length) % appPreview.screenshots.length" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-gray-900 hover:bg-orange-600 text-white flex items-center justify-center shadow-lg border border-gray-800"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                            <button @click="shotIndex = (shotIndex + 1) % appPreview.screenshots.length" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 rounded-full bg-gray-900 hover:bg-orange-600 text-white flex items-center justify-center shadow-lg border border-gray-800"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                        </div>
+                        <p class="text-center text-xs text-gray-400 mt-4" x-text="appPreview.screenshots[shotIndex].caption"></p>
+                        <div class="flex justify-center gap-1.5 mt-3">
+                            <template x-for="(shot, i) in appPreview.screenshots" :key="i">
+                                <button @click="shotIndex = i" class="w-1.5 h-1.5 rounded-full" :class="shotIndex === i ? 'bg-orange-600' : 'bg-gray-300'"></button>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </section>
