@@ -140,17 +140,19 @@
                         </template>
                     </div>
 
-                    <!-- FREE PREVIEW: APP DEMO VIDEO -->
+                    <!-- FREE PREVIEW: APP SCREENSHOTS -->
                     <h2 class="text-2xl font-bold text-gray-900 mb-2" x-text="appPreview.headline"></h2>
                     <p class="text-gray-500 text-sm mb-6" x-text="appPreview.subline"></p>
-                    <div class="max-w-xs mx-auto">
-                        <div class="bg-gray-900 rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-2">
-                            <video class="w-full rounded-xl" autoplay muted loop playsinline preload="metadata" :poster="appPreview.poster">
-                                <source :src="appPreview.videoSrc" type="video/mp4">
-                            </video>
-                        </div>
+                    <div class="-mx-6 md:-mx-8 px-6 md:px-8 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
+                        <template x-for="shot in appPreview.screenshots" :key="shot.image">
+                            <div class="shrink-0 w-48 snap-center">
+                                <div class="bg-gray-900 rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-1.5">
+                                    <img :src="shot.image" :alt="shot.caption" class="w-full rounded-xl">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center leading-snug" x-text="shot.caption"></p>
+                            </div>
+                        </template>
                     </div>
-                    <p class="text-center text-xs text-gray-400 mt-4 mb-0" x-text="appPreview.caption"></p>
                 </div>
             </section>
 
@@ -221,11 +223,7 @@
             <!-- BUY BOX -->
             <aside id="buy" class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
-                    <!-- Stripe Embedded Checkout mounts here -->
-                    <div id="checkout"></div>
-                    <p id="checkout-loading" class="text-center text-gray-500 text-sm">Loading checkout…</p>
-
-                    <div class="grid grid-cols-3 gap-2 mt-6 text-center">
+                    <div class="grid grid-cols-3 gap-2 mb-6 text-center">
                         <div class="flex flex-col items-center gap-1.5">
                             <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5.586a1 1 0 01.707.293l6.414 6.414a1 1 0 010 1.414l-7.586 7.586a1 1 0 01-1.414 0L3.293 12.293A1 1 0 013 11.586V6a3 3 0 013-3z"></path></svg>
                             <span class="text-[10px] uppercase tracking-wider text-gray-400">One-time purchase</span>
@@ -239,6 +237,10 @@
                             <span class="text-[10px] uppercase tracking-wider text-gray-400">Secure Stripe checkout</span>
                         </div>
                     </div>
+
+                    <!-- Stripe Embedded Checkout mounts here -->
+                    <div id="checkout"></div>
+                    <p id="checkout-loading" class="text-center text-gray-500 text-sm">Loading checkout…</p>
                 </div>
             </aside>
 
@@ -290,8 +292,6 @@
                     { title: "Save spots & track visits", detail: "Heart the spots you want and mark them visited as you go. Build your own trip from my list." }
                 ],
 
-                // Spot list grouped by state. Famous anchors named, hidden spots teased.
-                // Full spot names stay behind the paywall on purpose.
                 itinerary: [
                     {
                         title: "Oregon", count: 8, meta: "Waterfalls, the coast, and Crater Lake",
@@ -310,19 +310,16 @@
                     }
                 ],
 
-                // App demo video: drop a screen recording (MP4) into the site
-                // folder and point videoSrc at it. Keep it short (10-20s), it
-                // autoplays muted on loop like a TikTok. A vertical 9:16
-                // recording of scrolling through the guide works best.
                 appPreview: {
                     headline: "See Inside the Guide",
                     subline: "A quick look at exactly what you get the second you check out.",
-                    videoSrc: "app-preview.mp4",       // e.g. screen recording of the app/guide
-                    poster: "app-preview-poster.jpg",  // optional first-frame image shown while loading
-                    caption: "Every spot, my notes, my video, and directions. On your phone, ready to follow."
+                    screenshots: [
+                        { image: "https://i.postimg.cc/TPGjgL0c/Screenshot-2026-07-16-at-7-09-33-PM.png", caption: "Every spot, mapped and ready to go" },
+                        { image: "https://i.postimg.cc/fbBddHJ3/Screenshot-2026-07-16-at-7-10-58-PM.png", caption: "My notes, straight from the trail" },
+                        { image: "https://i.postimg.cc/PNsvH9Fm/Screenshot-2026-07-16-at-7-11-30-PM.png", caption: "Everything you need before you go" },
+                    ]
                 },
 
-                // Add entries as reviews come in; section stays hidden while empty
                 testimonials: [
                     // { name: "Sarah M.", quote: "Found three spots I'd never seen anywhere else. The parking notes alone saved us an hour." },
                 ],
@@ -339,10 +336,6 @@
                 nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; },
                 prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
 
-                // ---- Analytics helpers ----------------------------------
-                // Fires InitiateCheckout to all installed pixels and passes
-                // UTM params through to Stripe so purchases attribute back
-                // to the right TikTok/IG post.
                 trackCheckout() {
                     try {
                         if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: this.guide.title, value: this.guide.price, currency: 'USD' });
@@ -351,7 +344,6 @@
                     } catch (e) {}
                 },
                 init() {
-                    // Persist UTM params from bio-link traffic onto the checkout URL
                     try {
                         const params = new URLSearchParams(window.location.search);
                         const utms = [];
@@ -359,31 +351,3 @@
                             if (k.startsWith('utm_')) utms.push(k + '=' + encodeURIComponent(v));
                         }
                         if (utms.length && this.guide.checkoutUrl !== '#') {
-                            this.guide.checkoutUrl += (this.guide.checkoutUrl.includes('?') ? '&' : '?') + utms.join('&');
-                        }
-                    } catch (e) {}
-                }
-            }
-        }
-    </script>
-    <!-- Stripe Embedded Checkout: loads the card form directly into #checkout above -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        (async function initStripeCheckout() {
-            try {
-                const stripe = Stripe('pk_live_51Tssf9ERsltmMNDAbni1D6jUeF1QQhteMeJncmyAASclbcBNYO81omcMKFlofLhEgBTzP6F0Ib7h8HfTzDqF5Zo200GLrfv8tX');
-                const res = await fetch('https://peaktyler-checkout.vercel.app/api/create-checkout-session', {
-                    method: 'POST'
-                });
-                const { clientSecret } = await res.json();
-                const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
-                document.getElementById('checkout-loading').style.display = 'none';
-                checkout.mount('#checkout');
-            } catch (err) {
-                document.getElementById('checkout-loading').textContent = 'Checkout unavailable right now, refresh or email tyler@peaktyler.com';
-                console.error('Stripe embed failed:', err);
-            }
-        })();
-    </script>
-</body>
-</html>
