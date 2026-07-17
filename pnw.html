@@ -5,44 +5,17 @@
     <title>PNW Spot Guide | Peak Tyler</title>
     <meta name="description" content="Every PNW spot from my videos in one interactive guide. My notes, my Reel from each spot, AllTrails links, and one-tap directions. 20 spots across Washington, Oregon, and California.">
     <link rel="icon" type="image/jpeg" href="logo.jpeg">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KQKP5ST3');</script>
+    <!-- End Google Tag Manager -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- ============================================================
-         ANALYTICS: paste real IDs, then uncomment each block.
-         These fire PageView automatically; CTA click events are
-         wired in trackCheckout() at the bottom of this file.
-    ============================================================= -->
-    <!-- GA4
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    -->
-    <!-- Meta Pixel
-    <script>
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'YOUR_PIXEL_ID');
-      fbq('track', 'PageView');
-      fbq('track', 'ViewContent', {content_name: 'PNW Spot Guide', content_category: 'Guide', value: 20, currency: 'USD'});
-    </script>
-    -->
-    <!-- TikTok Pixel
-    <script>
-      !function (w, d, t) {
-        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-        ttq.load('YOUR_TIKTOK_PIXEL_ID');
-        ttq.page();
-      }(window, document, 'ttq');
-    </script>
-    -->
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -55,6 +28,12 @@
     </style>
 </head>
 <body class="text-gray-800 topo-bg overflow-x-hidden" x-data="guideData()">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQKP5ST3"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <nav class="fixed top-0 w-full z-50 transition-all duration-300" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)" :class="scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg py-2 md:py-3' : 'bg-gray-900/80 backdrop-blur-md py-3 md:py-4'">
         <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0 relative">
             <div class="flex justify-between items-center w-full md:w-auto relative z-10">
@@ -251,7 +230,7 @@
                 </div>
             </aside>
 
-            <!-- CONTACT: simple mailto, no backend needed. Deliberately understated. -->
+            <!-- CONTACT -->
             <section class="w-full">
                 <p class="text-center text-xs text-gray-400">
                     Got a question? <a href="mailto:tyler@peaktyler.com?subject=Question about the PNW Guide" class="underline hover:text-gray-600">Email me</a>
@@ -261,7 +240,7 @@
         </div>
     </main>
 
-    <!-- STICKY MOBILE BUY BAR: one large tappable button, shows earlier on scroll -->
+    <!-- STICKY MOBILE BUY BAR -->
     <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800 p-3"
          x-data="{ show: false }" @scroll.window="show = window.pageYOffset > 200" x-show="show" x-transition>
         <a href="#buy" class="flex items-center justify-center gap-2 w-full bg-orange-600 hover:bg-orange-700 text-white font-bold text-base uppercase tracking-wide py-4 rounded-full shadow-lg">
@@ -276,7 +255,7 @@
                     title: "The PNW Spot Guide",
                     description: "Every Pacific Northwest spot from my videos, in one interactive guide. You've seen the Reels. This is where they were shot. Each spot has my notes, my video from that exact location, the AllTrails link, and one-tap directions. It's how I plan my own trips, packaged so you can plan yours.",
                     price: 20,
-                    checkoutUrl: "https://buy.stripe.com/4gM5kD5FJ7kO5jMfRDew800", // Stripe Payment Link. UTM params are auto-appended by init()
+                    checkoutUrl: "https://buy.stripe.com/4gM5kD5FJ7kO5jMfRDew800",
                     stats: { spots: 20, states: 3, videos: 16 },
                     deliveryNote: "Instant access to the interactive guide. Works on your phone, nothing to download."
                 },
@@ -327,9 +306,7 @@
                     ]
                 },
 
-                testimonials: [
-                    // { name: "Sarah M.", quote: "Found three spots I'd never seen anywhere else. The parking notes alone saved us an hour." },
-                ],
+                testimonials: [],
 
                 faq: [
                     { q: "What exactly do I get after paying?", a: "Instant access to the interactive PNW guide: a map and spot library with my notes, my videos, AllTrails links, and directions for all 20 spots. It works in your phone browser, nothing to download, and it's yours for good including future spot additions." },
@@ -345,12 +322,29 @@
 
                 trackCheckout() {
                     try {
-                        if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: this.guide.title, value: this.guide.price, currency: 'USD' });
-                        if (window.ttq) ttq.track('InitiateCheckout', { content_name: this.guide.title, value: this.guide.price, currency: 'USD' });
-                        if (window.gtag) gtag('event', 'begin_checkout', { currency: 'USD', value: this.guide.price, items: [{ item_name: this.guide.title }] });
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            event: 'initiate_checkout',
+                            guide_name: this.guide.title,
+                            value: this.guide.price,
+                            currency: 'USD'
+                        });
                     } catch (e) {}
                 },
+
                 init() {
+                    // Push ViewContent event on page load
+                    try {
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            event: 'view_guide',
+                            guide_name: 'PNW Spot Guide',
+                            value: 20,
+                            currency: 'USD'
+                        });
+                    } catch (e) {}
+
+                    // Append UTM params to checkout URL
                     try {
                         const params = new URLSearchParams(window.location.search);
                         const utms = [];
@@ -365,7 +359,8 @@
             }
         }
     </script>
-    <!-- Stripe Embedded Checkout: loads the card form directly into #checkout above -->
+
+    <!-- Stripe Embedded Checkout -->
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         (async function initStripeCheckout() {
@@ -384,5 +379,6 @@
             }
         })();
     </script>
+
 </body>
 </html>
