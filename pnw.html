@@ -145,13 +145,9 @@
                     <h2 class="text-2xl font-bold text-gray-900 mb-2" x-text="appPreview.headline"></h2>
                     <p class="text-gray-500 text-sm mb-6" x-text="appPreview.subline"></p>
                     <div x-data="{ lightbox: false }">
-                        <div class="max-w-md mx-auto">
-                            <button @click="lightbox = true" class="block w-full cursor-zoom-in" aria-label="Open larger preview">
-                                <div class="bg-gray-900 rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-2 hover:border-orange-600/50 transition-colors">
-                                    <img :src="appPreview.image" :alt="appPreview.caption" class="w-full rounded-xl">
-                                </div>
-                            </button>
-                        </div>
+                        <button @click="lightbox = true" class="block w-full cursor-zoom-in" aria-label="Open larger preview">
+                            <img :src="appPreview.image" :alt="appPreview.caption" class="w-full rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                        </button>
                         <p class="text-center text-xs text-gray-400 mt-4" x-text="appPreview.caption"></p>
 
                         <!-- LIGHTBOX -->
@@ -234,7 +230,11 @@
             <!-- BUY BOX -->
             <aside id="buy" class="w-full max-w-md mx-auto">
                 <div class="bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl border border-gray-800 text-white">
-                    <div class="grid grid-cols-3 gap-2 mb-6 text-center">
+                    <!-- Stripe Embedded Checkout mounts here -->
+                    <div id="checkout"></div>
+                    <p id="checkout-loading" class="text-center text-gray-500 text-sm">Loading checkout…</p>
+
+                    <div class="grid grid-cols-3 gap-2 mt-6 text-center">
                         <div class="flex flex-col items-center gap-1.5">
                             <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5.586a1 1 0 01.707.293l6.414 6.414a1 1 0 010 1.414l-7.586 7.586a1 1 0 01-1.414 0L3.293 12.293A1 1 0 013 11.586V6a3 3 0 013-3z"></path></svg>
                             <span class="text-[10px] uppercase tracking-wider text-gray-400">One-time purchase</span>
@@ -248,10 +248,6 @@
                             <span class="text-[10px] uppercase tracking-wider text-gray-400">Secure Stripe checkout</span>
                         </div>
                     </div>
-
-                    <!-- Stripe Embedded Checkout mounts here -->
-                    <div id="checkout"></div>
-                    <p id="checkout-loading" class="text-center text-gray-500 text-sm">Loading checkout…</p>
                 </div>
             </aside>
 
@@ -303,6 +299,8 @@
                     { title: "Save spots & track visits", detail: "Heart the spots you want and mark them visited as you go. Build your own trip from my list." }
                 ],
 
+                // Spot list grouped by state. Famous anchors named, hidden spots teased.
+                // Full spot names stay behind the paywall on purpose.
                 itinerary: [
                     {
                         title: "Oregon", count: 8, meta: "Waterfalls, the coast, and Crater Lake",
@@ -328,6 +326,7 @@
                     caption: "The home page with filters, a full spot page with all the hike info, and every spot mapped out."
                 },
 
+                // Add entries as reviews come in; section stays hidden while empty
                 testimonials: [
                     // { name: "Sarah M.", quote: "Found three spots I'd never seen anywhere else. The parking notes alone saved us an hour." },
                 ],
@@ -344,6 +343,7 @@
                 nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; },
                 prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
 
+                // ---- Analytics helpers ----------------------------------
                 trackCheckout() {
                     try {
                         if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: this.guide.title, value: this.guide.price, currency: 'USD' });
