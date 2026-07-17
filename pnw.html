@@ -319,7 +319,13 @@
                     { q: "How is this different from just Googling the spots?", a: "You could find some of these on your own. That's literally how I found them, hours of scrolling and saving and cross-referencing. This is all of that done: the exact locations from my videos, with the notes I wish existed when I was planning. One place instead of forty open tabs." },
                 ],
 
-                media: [{ image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3", label: "The PNW Spot Guide", caption: "20 spots. My notes. My videos. One map." }],
+                media: [
+                    { image: "https://i.postimg.cc/0Q6Yf4WF/Full-Size-Render-3.jpg", label: "The PNW Spot Guide", caption: "20 spots. My notes. My videos. One map." },
+                    { image: "https://i.postimg.cc/pT7ZMvh1/Full-Size-Render-2.jpg", label: "The PNW Spot Guide", caption: "Real trails I've actually filmed." },
+                    { image: "https://i.postimg.cc/vTFVvZ6x/Full-Size-Render-4.jpg", label: "The PNW Spot Guide", caption: "The exact spots from my Reels." },
+                    { image: "https://i.postimg.cc/1zmMpJZx/Full-Size-Render.jpg", label: "The PNW Spot Guide", caption: "Easy pull-offs to full-day hikes." },
+                    { image: "https://i.postimg.cc/J0YWLG3K/Full-Size-Render-5.jpg", label: "The PNW Spot Guide", caption: "Every one of these, tested in person." }
+                ],
                 currentSlide: 0,
                 nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.media.length; },
                 prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.media.length) % this.media.length; },
