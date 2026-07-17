@@ -351,3 +351,31 @@
                             if (k.startsWith('utm_')) utms.push(k + '=' + encodeURIComponent(v));
                         }
                         if (utms.length && this.guide.checkoutUrl !== '#') {
+                            this.guide.checkoutUrl += (this.guide.checkoutUrl.includes('?') ? '&' : '?') + utms.join('&');
+                        }
+                    } catch (e) {}
+                }
+            }
+        }
+    </script>
+    <!-- Stripe Embedded Checkout: loads the card form directly into #checkout above -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        (async function initStripeCheckout() {
+            try {
+                const stripe = Stripe('pk_live_51Tssf9ERsltmMNDAbni1D6jUeF1QQhteMeJncmyAASclbcBNYO81omcMKFlofLhEgBTzP6F0Ib7h8HfTzDqF5Zo200GLrfv8tX');
+                const res = await fetch('https://peaktyler-checkout.vercel.app/api/create-checkout-session', {
+                    method: 'POST'
+                });
+                const { clientSecret } = await res.json();
+                const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
+                document.getElementById('checkout-loading').style.display = 'none';
+                checkout.mount('#checkout');
+            } catch (err) {
+                document.getElementById('checkout-loading').textContent = 'Checkout unavailable right now, refresh or email tyler@peaktyler.com';
+                console.error('Stripe embed failed:', err);
+            }
+        })();
+    </script>
+</body>
+</html>
