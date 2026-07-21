@@ -11,7 +11,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
         body { font-family: 'Outfit', sans-serif; }
-        h1, h2, h3, .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        h1, h2, h3, h4, .heading-font { font-family: 'Space Grotesk', sans-serif; }
         .topo-bg { background-color: #f3f4f6; background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topoPattern' patternUnits='userSpaceOnUse' width='500' height='500' viewBox='0 0 500 500'%3E%3Cpath d='M0 250 Q 125 100, 250 250 Q 375 400, 500 250 M0 270 Q 125 120, 250 270 Q 375 420, 500 270 M0 230 Q 125 80, 250 230 Q 375 380, 500 230 M0 300 Q 125 150, 250 300 Q 375 450, 500 300 M0 200 Q 125 50, 250 200 Q 375 350, 500 200 M0 350 Q 125 200, 250 350 Q 375 500, 500 350 M0 150 Q 125 0, 250 150 Q 375 300, 500 150' stroke='%239ca3af' stroke-opacity='0.3' fill='none' stroke-width='1.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%' height='100%' fill='url(%23topoPattern)'/%3E%3C/svg%3E"); background-size: 500px 500px; }
         ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
         .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -62,19 +62,23 @@
                     <div class="w-16 h-1 bg-orange-600 mb-5"></div>
                     <p class="text-lg text-gray-600 leading-relaxed mb-8" x-text="guide.description"></p>
                     <div class="grid grid-cols-3 gap-3 md:gap-4 text-center mb-10">
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.days"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Days</div></div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.miles"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Miles</div></div>
-                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.stops"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Stops</div></div>
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.regions"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Regions</div></div>
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.spots"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Spots</div></div>
+                        <div class="p-3 md:p-4 bg-white rounded-lg shadow-sm border border-gray-100"><div class="text-xl md:text-3xl font-bold text-gray-900" x-text="guide.stats.overnights"></div><div class="text-[10px] md:text-xs uppercase tracking-wider text-gray-500 mt-1">Overnights</div></div>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">The Itinerary</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">What's Inside</h2>
+                    <p class="text-gray-600 mb-6">Two regions, nine hand-picked shooting locations — each with the exact access, timing, gear, and hut bookings you need. Here's the scope:</p>
                     <div class="space-y-4">
-                        <template x-for="(day, index) in itinerary" :key="index">
-                            <div x-data="{ expanded: false }" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                                <button @click="expanded = !expanded" class="w-full flex items-center gap-3 md:gap-4 p-4 md:p-5 text-left hover:bg-gray-50 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold heading-font shrink-0" x-text="index + 1"></div>
-                                    <div class="flex-1 min-w-0"><h3 class="font-bold text-gray-900 leading-tight" x-text="day.title"></h3><p class="text-xs md:text-sm text-gray-500 mt-0.5" x-text="day.meta"></p></div>
-                                </button>
-                                <div x-show="expanded" class="px-4 md:px-5 pb-5 pt-1 border-t border-gray-100"><ul class="list-disc list-inside text-gray-600 text-sm md:text-base space-y-1 mb-3"><template x-for="stop in day.highlights"><li x-text="stop"></li></template></ul></div>
+                        <template x-for="(region, rIndex) in regions" :key="rIndex">
+                            <div class="bg-gray-900 rounded-xl p-5 md:p-6 text-white">
+                                <div class="flex items-start justify-between gap-3 mb-2">
+                                    <div>
+                                        <h3 class="text-lg md:text-xl font-bold" x-text="region.name"></h3>
+                                        <p class="text-xs md:text-sm text-orange-400 font-bold uppercase tracking-wider mt-0.5" x-text="region.subtitle"></p>
+                                    </div>
+                                    <span class="shrink-0 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full" x-text="region.spotCount + ' spots'"></span>
+                                </div>
+                                <p class="text-gray-300 text-sm md:text-base leading-relaxed" x-text="region.teaser"></p>
                             </div>
                         </template>
                     </div>
@@ -88,21 +92,77 @@
                     <a :href="guide.checkoutUrl" target="_blank" class="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-full uppercase tracking-wider text-center transition-all transform hover:-translate-y-1 shadow-lg mt-6">Get Instant Access</a>
                 </div>
             </aside>
+
+            <section class="w-full">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">More Field Guides</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- PNW -->
+                    <a href="pnw.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group aspect-[3/4]">
+                        <img src="pnw.jpg" alt="Pacific Northwest guide" class="w-full h-full object-cover object-[25%_center]">
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                        <div class="absolute top-6 w-full text-center font-black text-2xl text-white tracking-tight heading-font drop-shadow-[0_3px_12px_rgba(0,0,0,1)]">PNW</div>
+                        <div class="absolute bottom-6 w-full flex justify-center">
+                            <span class="bg-orange-600 text-white px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">View Guide</span>
+                        </div>
+                    </a>
+                    <!-- Iceland -->
+                    <a href="iceland.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group aspect-[3/4]">
+                        <img src="iceland.jpg" alt="Iceland guide" class="w-full h-full object-cover object-[80%_center]">
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                        <div class="absolute top-6 w-full text-center font-black text-2xl text-white tracking-tight heading-font drop-shadow-[0_3px_12px_rgba(0,0,0,1)]">ICELAND</div>
+                        <div class="absolute bottom-6 w-full flex justify-center">
+                            <span class="bg-orange-600 text-white px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">View Guide</span>
+                        </div>
+                    </a>
+                    <!-- Dolomites -->
+                    <a href="dolomites.html" class="relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group aspect-[3/4]">
+                        <img src="dolomites.jpg" alt="Dolomites guide" class="w-full h-full object-cover object-center">
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                        <div class="absolute top-6 w-full text-center font-black text-2xl text-white tracking-tight heading-font drop-shadow-[0_3px_12px_rgba(0,0,0,1)]">DOLOMITES</div>
+                        <div class="absolute bottom-6 w-full flex justify-center">
+                            <span class="bg-orange-600 text-white px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">View Guide</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
         </div>
     </main>
     <script>
         function guideData() {
             return {
                 guide: {
-                    title: "Swiss Alpine Acclimatization Route", date: "June Portfolio", location: "Switzerland",
-                    description: "My exact content creation and training route through the Swiss alpine hubs. Includes transit logistics, rental car realities, and specific acclimatization zones before heading to higher objectives like the Mont Blanc Goûter Hut.",
-                    price: 30, checkoutUrl: "#", stats: { days: 14, miles: "110", stops: 12 }
+                    title: "The Switzerland Field Guide",
+                    date: "Central + Eastern",
+                    location: "Switzerland",
+                    description: "The exact spots behind my Switzerland shots — across two regions most people skip. For each one: how to get there by train, cable car, or bus, when the light actually works, the gear you need, and which huts to book ahead. Everything behind the videos, in one guide.",
+                    price: 30,
+                    checkoutUrl: "#", // TODO: paste the Switzerland Stripe payment link
+                    stats: { regions: 2, spots: 9, overnights: 4 }
                 },
-                media: [{ image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3", label: "Lauterbrunnen", caption: "Deep valley logistics" }],
+                // TODO: swap in your own photo(s) — add more objects here to rotate a gallery
+                media: [
+                    { image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3", label: "Switzerland", caption: "Where the valley opens up" }
+                ],
                 currentSlide: 0,
-                itinerary: [
-                    { title: "Valais Region & Zermatt", meta: "Days 1-6", highlights: ["Train logistics for car-free zones", "Matterhorn high trail runs"] },
-                    { title: "Goûter Route Prep", meta: "Days 7-10", highlights: ["Altitude stepping schedules", "Hut-to-hut packing lists"] }
+                // Public-facing region teasers ONLY. Specific spots + logistics are the PAID product
+                // and are intentionally NOT rendered on this page. Full details kept below for reference.
+                regions: [
+                    {
+                        name: "Central Switzerland",
+                        subtitle: "Bernese Oberland",
+                        spotCount: 6,
+                        teaser: "The heart of the Alps — glacial valleys, cliffside cable cars, and the turquoise lakes this region is famous for. Six of my go-to shooting locations, with the logistics to reach each one.",
+                        // NOT rendered — reference only:
+                        spots: ["Lauterbrunnen","Rosenlaui","Murren-Gimmelwald Via Ferrata","Lake Oeschinensee","Lake Bachalpsee","Aletsch Glacier"]
+                    },
+                    {
+                        name: "Eastern Switzerland",
+                        subtitle: "Appenzell & Glarus",
+                        spotCount: 3,
+                        teaser: "The quiet side most travelers never reach — ridge-top huts, hidden reservoirs, and sunrise-only summits well off the tourist trail. Three spots that take a little more effort and pay off big.",
+                        // NOT rendered — reference only:
+                        spots: ["Lake Limmerensee + Muttseehutte","Schafler Ridge","Saxer Lucke"]
+                    }
                 ]
             }
         }
