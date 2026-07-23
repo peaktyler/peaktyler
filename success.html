@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're In | Peak Tyler</title>
     <link rel="icon" type="image/jpeg" href="logo.jpeg">
-
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,7 +12,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KQKP5ST3');</script>
     <!-- End Google Tag Manager -->
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -22,47 +20,52 @@
     </style>
 </head>
 <body class="bg-gray-900 min-height: 100vh; text-white flex items-center justify-center min-h-screen p-6">
-
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQKP5ST3"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
     <div class="max-w-md w-full text-center">
-
         <!-- Icon -->
         <div class="w-16 h-16 rounded-full bg-orange-600 flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
         </div>
-
         <!-- Heading -->
         <h1 class="text-3xl md:text-4xl font-bold heading-font mb-3">You're in.</h1>
-        <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
-            Thanks for grabbing the PNW guide. Check your email — your link is on its way, usually within a minute.
+        <p id="guide-message" class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
+            Thanks for grabbing the guide. Check your email — your link is on its way, usually within a minute.
         </p>
         <p class="text-gray-500 text-sm mb-8">
             Don't see it? Check spam, or email <a href="mailto:tyler@peaktyler.com" class="text-orange-500 underline hover:text-orange-400">tyler@peaktyler.com</a>
         </p>
-
         <!-- Back to guides -->
         <a href="index.html" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold uppercase tracking-widest text-sm px-8 py-3 rounded-full transition-all shadow-lg">
             Browse More Guides
         </a>
-
     </div>
-
-    <!-- Purchase event fires on page load -->
+    <!-- Purchase event fires on page load, tagged with the guide actually bought -->
     <script>
+        const GUIDE_NAMES = {
+            pnw: 'PNW Spot Guide',
+            switzerland: 'Switzerland Spot Guide'
+        };
+        const params = new URLSearchParams(window.location.search);
+        const slug = (params.get('guide') || 'pnw').toLowerCase();
+        const sessionId = params.get('session_id') || '';
+        const guideName = GUIDE_NAMES[slug] || 'Spot Guide';
+
+        document.getElementById('guide-message').textContent =
+            'Thanks for grabbing the ' + guideName + '. Check your email — your link is on its way, usually within a minute.';
+
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: 'purchase',
-            guide_name: 'PNW Spot Guide',
+            transaction_id: sessionId || ('no-session-' + slug),
+            guide_name: guideName,
             value: 20,
             currency: 'USD'
         });
     </script>
-
 </body>
 </html>
