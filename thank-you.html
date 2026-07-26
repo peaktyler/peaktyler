@@ -19,7 +19,7 @@
         h1, h2, h3, .heading-font { font-family: 'Space Grotesk', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-900 min-height: 100vh; text-white flex items-center justify-center min-h-screen p-6">
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-6">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQKP5ST3"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -48,16 +48,16 @@
     <script>
         const GUIDE_NAMES = {
             pnw: 'PNW Spot Guide',
-            switzerland: 'Switzerland Spot Guide'
+            switzerland: 'Switzerland Spot Guide',
+            dolomites: 'Dolomites Spot Guide',
+            iceland: 'Iceland Spot Guide'
         };
         const params = new URLSearchParams(window.location.search);
         const slug = (params.get('guide') || 'pnw').toLowerCase();
         const sessionId = params.get('session_id') || '';
         const guideName = GUIDE_NAMES[slug] || 'Spot Guide';
-
         document.getElementById('guide-message').textContent =
             'Thanks for grabbing the ' + guideName + '. Check your email — your link is on its way, usually within a minute.';
-
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: 'purchase',
